@@ -1,0 +1,17 @@
+<div id='menu'>
+
+<h1><b>mantra</b> <span class='version'>0.1 alpha</span></h1>
+
+
+<p>{control dbForm}</p>
+
+<p id='tables'>
+{foreach $collList as $collection}
+    <a href='{plink Select:default, database=>$presenter->database, collection=>$collection}'>select</a>
+    <a href='{plink Collection:default, database=>$presenter->database, collection=>$collection}'>{$collection}</a><br>
+{/foreach}
+</p>
+
+<!--<p><a href='{plink Settings:default}'>Session settings</a></p>-->
+
+</div>

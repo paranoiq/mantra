@@ -1,0 +1,61 @@
+{extends @layout.phtml}
+
+{block #title}{$presenter->database} (mantra){/block}
+
+{block #h2}Database: {$presenter->database}{/block}
+
+{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Databases'>Databases</a>,
+    <a href='http://www.mongodb.org/display/DOCS/Collections'>Collections</a>{/block}
+
+{block #content}
+
+<p>
+<a href='{plink CreateColl:default}'>Create collection</a>
+<a href='{plink Command:default}'>Run command</a>
+</p>
+
+<h3>Collections</h3>
+
+{?$form->render('begin')}
+{?$form->render('errors')}
+<table class='data'>
+<tr><thead><th></th><th>Collection</th><td>Objects</td><td>Data Size</td></thead></tr>
+{foreach $collections as $collection => $info}
+    <tr>
+        <td>{$form['coll'][$info['id']]->control}</td>
+        <td><b><a href='{plink Collection:default, database=>$presenter->database, collection=>$collection}'>{$collection}</a></b></td>
+        <td>{$info['objects']}</td>
+        <td>{$info['dataSize']}</td>
+    </tr>
+{/foreach}
+</table>
+<fieldset>
+    {$form['empty']->control}
+    {$form['drop']->control}
+</fieldset>
+<fieldset>
+    {$form['dropIndexes']->control}
+    {$form['reindex']->control}
+</fieldset>
+<fieldset>
+    {$form['validate']->control}
+    {$form['validateData']->control}
+</fieldset>
+{?$form->render('end')}
+
+
+<h3>Database statistics</h3>
+<table cellspacing='0' class='info'>
+{foreach $databaseStats as $key => $item}
+    <tr>
+    {if is_array($item)}
+        <th colspan='2'>{$key}</th></tr>
+        {foreach $item as $subkey => $subitem}
+            <tr><th>{$subkey}</th><td>{$subitem}</td></tr>
+        {/foreach}
+    {else}
+        <th>{$key}</th><td>{$item}</td>
+    {/if}
+    </tr>
+{/foreach}
+</table>

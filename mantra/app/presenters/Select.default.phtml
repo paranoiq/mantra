@@ -1,0 +1,80 @@
+{extends @layout.phtml}
+
+{block #title}{$presenter->database}.{$presenter->collection} select (mantra){/block}
+
+{block #h2}Select items: {$presenter->collection}{/block}
+
+{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Querying'>Querying</a>,
+    <a href='http://www.mongodb.org/display/DOCS/Mongo+Extended+JSON'>Extended JSON</a>{/block}
+{block #content}
+
+<p>
+<a href='{plink Collection:default}'>Collection</a>
+<a href='{plink Select:default}'>Select</a>
+<a href='{plink Update:default}'>Update</a>
+<a href='{plink Insert:default}'>Insert</a>
+</p>
+
+{?$queryForm->render('begin')}
+{?$queryForm->render('errors')}
+
+<fieldset><legend>Query (JSON)</legend>
+    {$queryForm['query']->control}
+</fieldset>
+<fieldset><legend>Order</legend>
+{foreach $queryForm['key']->getComponents() as $n => $key}
+    {$key->control} {$queryForm['order'][$n]->control} {$queryForm['order'][$n]->label}<br>
+{/foreach}
+    {$queryForm['more']->control} {$queryForm['less']->control}
+</fieldset>
+<fieldset><legend>Limit</legend>
+    {$queryForm['limit']->control}
+</fieldset>
+<fieldset><legend>Action</legend>
+    {$queryForm['select']->control}
+</fieldset>
+{?$queryForm->render('end')}
+
+<br>
+{?$form->render('begin')}
+{?$form->render('errors')}
+<table class='data'>
+<thead><td></td><td>Edit</td><td>Id</td><td>Data &nbsp; <label><input type='checkbox' id='pre' checked /> flatten</label></td></thead>
+{foreach $items as $id => $item}
+<tr>
+    <td>{$form['item'][$id]->control}</td>
+    <td><a href='{plink Edit:default, database=>$presenter->database, collection=>$presenter->collection, id=>$id}'>edit</a></td>
+    <td><a href='{plink Show:default, id=>$id}'>{$id}</a></td>
+    <td class='itemdata'>{!$item}</td>
+</tr>
+{/foreach}
+</table>
+<fieldset>
+    {$form['update']->control}
+    {$form['clone']->control}
+    {$form['delete']->control}
+</fieldset>
+<fieldset>
+    {$form['exportAction']->control}
+    {$form['exportFormat']->control}
+    {$form['export']->control}
+</fieldset>
+{?$form->render('end')}
+
+<script>
+    $(document).ready( function() {
+        $('#pre').click( function() { 
+            if(this.checked) {
+                $('.itemdata')
+                    .css('white-space', 'normal')
+                    .css('font-size',   '11pt')
+                    .css('font-family', 'inherit');
+            } else {
+                $('.itemdata')
+                    .css('white-space', 'pre')
+                    .css('font-size',   '9pt')
+                    .css('font-family', 'Consolas');
+            }
+        });
+    });
+</script>

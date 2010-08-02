@@ -1,0 +1,27 @@
+{extends @layout.phtml}
+
+{block #title}Collection usage (mantra){/block}
+
+{block #action} » collection usage{/block}
+
+{block #h2}Collection usage{/block}
+
+{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Optimization'>Optimization</a>{/block}
+
+{block #content}
+
+<table cellspacing='0' class='info'>
+{foreach $usage as $key => $item}
+    <tr>
+    {if is_array($item)}
+        <th colspan='1'>{$key}</th><th>time</th><th>count</th></tr>
+        {foreach $item as $subkey => $subitem}
+            <tr><th>{$subkey}</th><td>{$subitem['time']}</td><td>{$subitem['count']}</td></tr>
+        {/foreach}
+    {else}
+        <th>{$key}</th><td>{$item}</td>
+    {/if}
+    </tr>
+{/foreach}
+</table>
+

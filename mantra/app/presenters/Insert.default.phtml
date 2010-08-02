@@ -1,0 +1,22 @@
+{extends @layout.phtml}
+
+{block #title}{$presenter->database}.{$presenter->collection} insert (mantra){/block}
+
+{block #action} » insert{/block}
+
+{block #h2}Insert item: {$presenter->collection}{/block}
+
+{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Inserting'>Inserting</a>,
+    <a href='http://www.mongodb.org/display/DOCS/Mongo+Extended+JSON'>Extended JSON</a>{/block}
+
+{block #content}
+
+<p>
+<a href='{plink Collection:default}'>Collection</a>
+<a href='{plink Select:default}'>Select</a>
+<a href='{plink Update:default}'>Update</a>
+<a href='{plink Insert:default}'>Insert</a>
+</p>
+
+{control form}
+

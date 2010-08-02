@@ -1,0 +1,21 @@
+{extends @layout.phtml}
+
+{block #title}{$presenter->database} command (mantra){/block}
+
+{block #action} » run command{/block}
+
+{block #h2}Run command{/block}
+
+{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Commands'>Commands</a>,
+    <a href='http://www.mongodb.org/display/DOCS/Mongo+Extended+JSON'>Extended JSON</a>{/block}
+
+{block #content}
+
+<p>
+<a href='{plink Commands:default}'>List commands</a>
+</p>
+
+{if isset($result)}<pre class='result'>{!$result}</pre><br>{/if}
+{if isset($copy)}<pre class='result'>{!$copy}</pre>{/if}<br>
+
+{control form}

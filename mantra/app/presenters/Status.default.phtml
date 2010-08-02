@@ -1,0 +1,60 @@
+{extends @layout.phtml}
+
+{block #title}Server status (mantra){/block}
+
+{block #action} » server status{/block}
+
+{block #h2}Server status{/block}
+
+{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Monitoring+and+Diagnostics'>Diagnostics</a>,
+    <a href='http://www.mongodb.org/display/DOCS/Optimization'>Optimization</a>{/block}
+
+{block #content}
+
+<p>
+<a href='{plink Status:default}'>Server status</a>
+<a href='{plink Usage:default}'>Collection usage</a>
+<a href='http://{$firstServer}:28017/'>Server dignostic screen</a>
+</p>
+
+<p>
+MongoDB server: {!$version}<br>
+running as: <b>{$masterSlave}</b><br>
+startup config: <b>{$cmdLine}</b><br>
+</p>
+
+{?$form->render('begin')}
+{?$form->render('errors')}
+<fieldset>
+    {$form['shutdown']->control}
+</fieldset>
+<fieldset>
+    {$form['lock']->control}
+    {$form['unlock']->control}
+</fieldset>
+{?$form->render('end')}
+
+<br>
+<table cellspacing='0' class='info'>
+{foreach $status as $key => $item}
+    <tr>
+    {if is_array($item)}
+        <th colspan='2'>{$key}</th></tr>
+        {foreach $item as $subkey => $subitem}
+            <tr><th>{$subkey}</th><td>
+            {if is_array($subitem)}
+                {foreach $subitem as $subsubkey => $subsubitem}
+                    {$subsubkey}: {$subsubitem}<br>
+                {/foreach}
+            {else}
+                {$subitem}
+            {/if}
+            </td></tr>
+        {/foreach}
+    {else}
+        <th>{$key}</th><td>{$item}</td>
+    {/if}
+    </tr>
+{/foreach}
+</table>
+

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang='{$lang}'>
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    
+    <meta name='description' content='Mantra - MongoDB administration tool'>
+    <meta name='author' content='Vlasta Neubauer (@paranoiq)'>
+    <meta name='robots' content='{$robots}' n:ifset='$robots'>
+    
+    <title>{block #title}mantra{/block}</title>
+    
+    <link rel='stylesheet' href='{$basePath}/static/default.css' type='text/css'>
+    <link rel='stylesheet' href='{$basePath}/static/adminer.css' type='text/css'>
+    <link rel='stylesheet' href='{$basePath}/static/mantra.css' type='text/css'>
+    <link rel='shortcut icon' href='{$basePath}/static/favicon.ico' type='image/x-icon'>
+    
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js'></script>
+</head>
+<body>
+
+<div id='content'>
+    <h2>{block #h2}mantra{/block}</h2>
+    
+    {foreach $flashes as $flash}<div class='flash {$flash->type}'>{$flash->message}</div>{/foreach}
+    
+    {include #content}
+    
+    <p id='breadcrumb'>
+        <a href='{plink Home:default, database=>NULL, collection=>NULL}'>{$servers}</a> ({$master})
+    {if $presenter->database}
+        » <a href='{plink Database:default, database=>$presenter->database, collection=>NULL}'>{$presenter->database}</a>
+    {/if}
+    {if $presenter->collection}
+        » <a href='{plink Collection:default, database=>$presenter->database, collection=>$presenter->collection}'>{$presenter->collection}</a>
+    {/if}
+    {block #action}{/block}
+    </p>
+    
+    {if $locked}
+    <p id='warning'>Server is locked for writing! <a href='{plink Status:default}'>unlock</a></p>
+    {/if}
+    
+    <p id='help'>
+    {block #help}{/block}
+    </p>
+</div>
+    
+<div id='lang'>
+    {control langForm}
+</div>
+    
+    {include @menu.phtml}
+</body>
+</html>

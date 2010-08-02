@@ -1,0 +1,50 @@
+{extends @layout.phtml}
+
+{block #title}{$presenter->database}.{$presenter->collection} update (mantra){/block}
+
+{block #action} » update{/block}
+
+{block #h2}Update items: {$presenter->collection}{/block}
+
+{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Updating'>Updating</a>, 
+    <a href='http://www.mongodb.org/display/DOCS/Removing'>Removing</a>,
+    <a href='http://www.mongodb.org/display/DOCS/Mongo+Extended+JSON'>Extended JSON</a>{/block}
+
+{block #content}
+
+<p>
+<a href='{plink Collection:default}'>Collection</a>
+<a href='{plink Select:default}'>Select</a>
+<a href='{plink Update:default}'>Update</a>
+<a href='{plink Insert:default}'>Insert</a>
+</p>
+
+{control form}
+
+<p class='note'>Update operators:
+<br>$inc
+<br>$set
+<br>$unset
+<br>$push
+<br>$pushAll
+<br>$addToSet
+<br>$pop
+<br>$pull
+<br>$pullAll
+</p>
+
+<script>
+/*    $(document).ready(function() {
+        if ($('#frmform-delete:checked').get()) {
+            $('table tr:nth-child(3)').hide();
+        }
+        $('#frmform-delete').change(function() {
+            alert($('#frmform-delete:checked'.get()));
+            if ($('#frmform-delete:checked'.get())) {
+                $('table tr:nth-child(3)').hide();
+            } else {
+                $('table tr:nth-child(3)').show();
+            }
+        });
+    });*/
+</script>

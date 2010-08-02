@@ -1,0 +1,34 @@
+{extends @layout.phtml}
+
+{block #title}{$presenter->database}.{$presenter->collection} » create index (mantra){/block}
+
+{block #action} » create index{/block}
+
+{block #h2}Create index{/block}
+
+{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Indexes'>Indexes</a>, 
+    <a href='http://www.mongodb.org/display/DOCS/Optimization'>Optimization</a>{/block}
+
+{block #content}
+
+{?$form->render('begin')}
+{?$form->render('errors')}
+<fieldset>
+<table>
+    <tr><td>{$form['name']->label}</td><td>{$form['name']->control}</td><td></td></tr>
+{for $n = 0; $n < $count; $n++}
+    <tr>
+        <td>{$form['key'][$n]->label}</td>
+        <td>
+            {$form['key'][$n]->control} {$form['order'][$n]->control} {$form['order'][$n]->label}
+        </td>
+    </tr>
+{/for}
+    <tr><td></td><td>{$form['more']->control} {$form['less']->control}</td></tr>
+    <tr><td></td><td>{$form['unique']->control} {$form['unique']->label}</td></tr>
+    <tr><td></td><td>{$form['dropDups']->control} {$form['dropDups']->label}</td></tr>
+    <tr><td></td><td>{$form['background']->control} {$form['background']->label}</td></tr>
+    <tr><td></td><td>{$form['create']->control}</td></tr>
+</table>
+</fieldset>
+{?$form->render('end')}

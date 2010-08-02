@@ -1,0 +1,59 @@
+{extends @layout.phtml}
+
+{block #title}{$presenter->database}.{$presenter->collection} (mantra){/block}
+
+{block #h2}Collection: {$presenter->collection}{/block}
+
+{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Collections'>Collections</a>, 
+    <a href='http://www.mongodb.org/display/DOCS/Indexes'>Indexes</a>{/block}
+
+{block #content}
+
+<p>
+<a href='{plink Collection:default}'>Collection</a>
+<a href='{plink Select:default}'>Select</a>
+<a href='{plink Update:default}'>Update</a>
+<a href='{plink Insert:default}'>Insert</a>
+<a href='{plink RenameColl:default}'>Rename collection</a>
+<a href='{plink CreateIndex:default}'>Create index</a>
+</p>
+
+<h3>Indexes</h3>
+
+{?$form->render('begin')}
+{?$form->render('errors')}
+<table class='data'>
+<thead><td></td><th>Name</th><td>Keys</td><td>Size</td></thead>
+{foreach $indexes as $index => $info}
+    <tr><td>{$form['index'][$info['id']]->control}</td><th>{$index}</th><td>{$info['keys']}</td><td>{$info['size']}</td></tr>
+{/foreach}
+</table>
+<fieldset>
+    {$form['drop']->control}
+</fieldset>
+{?$form->render('end')}
+
+<h3>Collection statistics</h3>
+
+<table cellspacing='0' class='info'>
+{foreach $stats as $key => $item}
+    <tr>
+    {if is_array($item)}
+        <th colspan='2'>{$key}</th></tr>
+        {foreach $item as $subkey => $subitem}
+            <tr><th>{$subkey}</th><td>
+            {if is_array($subitem)}
+                {foreach $subitem as $subsubkey => $subsubitem}
+                    {$subsubkey}: {$subsubitem}<br>
+                {/foreach}
+            {else}
+                {$subitem}
+            {/if}
+            </td></tr>
+        {/foreach}
+    {else}
+        <th>{$key}</th><td>{$item}</td>
+    {/if}
+    </tr>
+{/foreach}
+</table>

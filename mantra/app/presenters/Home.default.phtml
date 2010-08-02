@@ -1,0 +1,51 @@
+{extends @layout.phtml}
+
+{block #title}Databases (mantra){/block}
+
+{block #h2}Select database{/block}
+
+{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Manual'>Manual</a>, 
+    <a href='http://www.mongodb.org/display/DOCS/Databases'>Databases</a>{/block}
+
+{block #content}
+
+<p>
+<a href='{plink CreateDb:default}'>Create database</a>
+<a href='{plink Process:default}'>Process list</a>
+<a href='{plink Status:default}'>Server status</a>
+</p>
+
+{if isset($version)}<p>MongoDB server: {!$version}; PHP Mongo extension: <b>{? echo \Mongo::VERSION; }</b></p><br>{/if}
+
+{?$form->render('begin')}
+{?$form->render('errors')}
+<table class='data'>
+<thead><tr><th></th><th>Database</th><td>Collections</td><td>Objects</td><td>Data Size</td><td>File Size</td></tr></thead>
+<tbody>
+{foreach $databases as $db => $info}
+    <tr>
+        <td>{$form['db'][$info['id']]->control}</td>
+        <td><b><a href='{plink Database:default, database=>$db}'>{$db}</a></b></td>
+        <td>{$info['collections']}</td>
+        <td>{$info['objects']}</td>
+        <td>{$info['dataSize']}</td>
+        <td>{$info['fileSize']}</td>
+    </tr>
+{/foreach}
+</tbody>
+</table>
+<fieldset>
+    {$form['drop']->control}
+</fieldset>
+<fieldset>
+    <table>
+    <tr><td>
+    {$form['repair']->control}
+    </td><td>
+    {$form['preserve']->control}{$form['preserve']->label}
+    </td></tr><tr><td></td><td>
+    {$form['backup']->control}{$form['backup']->label}
+    </td></tr>
+    </table>
+</fieldset>
+{?$form->render('end')}

@@ -1,0 +1,35 @@
+{extends @layout.phtml}
+
+{block #title}Commands (mantra){/block}
+
+{block #action} » commands{/block}
+
+{block #h2}Commands{/block}
+
+{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Commands'>Commands</a>{/block}
+
+{block #content}
+
+<table class='data'>
+<thead><tr>
+    <th colspan='1'>Name</th>
+    <th><abbr title='admin only'>A</abbr></th>
+    <th><abbr title='slave ok'>S</abbr></th>
+    <th><abbr title='read lock'>R</abbr></th>
+    <th><abbr title='read lock'>W</abbr></th>
+    <th>Help</th>
+</tr></thead>
+{foreach $commands as $name => $item}
+<tr>
+    <th>{$name}</th>
+    <td>{? echo $item['adminOnly'] ? '&#10004;' : ''; }</td>
+    <td>{? echo $item['slaveOk']   ? '&#10004;' : ''; }</td>
+    <td>{? echo $item['lockType'] == -1 ? '&#10004;' : ''; }</td>
+    <td>{? echo $item['lockType'] ==  1 ? '&#10004;' : ''; }</td>
+    <td>{!$item['help']}</td>
+</tr>
+{/foreach}
+</table>
+
+<p>A = admin only, S = slave ok, R = read lock, W = write lock</p>
+
