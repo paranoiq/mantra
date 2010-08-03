@@ -27,8 +27,8 @@ class StatusPresenter extends BasePresenter {
         $form = FormFactory::create($this, 'form', FormFactory::NAKED);
         
         $form->addSubmit('shutdown', 'Shutdown server')->onClick[] = array($this, 'shutdownServer');
-        $form->addSubmit('lock', 'Lock write')->onClick[] = array($this, 'lockWrite');
-        $form->addSubmit('unlock', 'Unlock write')->onClick[] = array($this, 'unlockWrite');
+        //$form->addSubmit('lock', 'Lock write')->onClick[] = array($this, 'lockWrite');
+        //$form->addSubmit('unlock', 'Unlock write')->onClick[] = array($this, 'unlockWrite');
         
         $form[($this->db->isLocked() ? 'lock' : 'unlock')]->setDisabled();
         
