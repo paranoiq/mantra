@@ -14,7 +14,7 @@ class HomePresenter extends BasePresenter {
             $stats = $this->db->info->getDatabaseStats($db);
             
             $databases[$db]['id'] = Tools::escapeId($db);
-            $databases[$db]['collections'] = count($this->db->getCollectionList($db));
+            $databases[$db]['collections'] = count($this->db->info->getCollectionList($db));
             $databases[$db]['objects']  = $stats['objects'];
             $databases[$db]['dataSize'] = $stats['dataSize'];
             $databases[$db]['fileSize'] = $stats['fileSize'];
