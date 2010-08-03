@@ -8,7 +8,7 @@ class HomePresenter extends BasePresenter {
     
     public function actionDefault() {
         
-        $list = $this->db->getDatabaseList();
+        $list = $this->db->info->getDatabaseList();
         $databases = array();
         foreach ($list as $db) {
             $stats = $this->db->info->getDatabaseStats($db);
@@ -31,7 +31,7 @@ class HomePresenter extends BasePresenter {
     public function createComponentForm() {
         $form = FormFactory::create($this, 'form');
         
-        $list = $this->db->getDatabaseList();
+        $list = $this->db->info->getDatabaseList();
         $container = $form->addContainer('db');
         foreach ($list as $db) {
             $container->addCheckbox(Tools::escapeId($db));

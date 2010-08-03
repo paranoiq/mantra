@@ -78,7 +78,7 @@ class BasePresenter extends Presenter {
         $form = FormFactory::create($this, 'dbForm', FormFactory::NAKED);
         $form->onSubmit[] = array($this, 'selectDatabase');
         
-        $dbList = $this->db->getDatabaseList();
+        $dbList = $this->db->info->getDatabaseList();
         $dbs = array();
         foreach ($dbList as $db) {
             $dbs[$db] = $db;
