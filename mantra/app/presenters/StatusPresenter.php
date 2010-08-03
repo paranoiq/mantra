@@ -30,7 +30,7 @@ class StatusPresenter extends BasePresenter {
         //$form->addSubmit('lock', 'Lock write')->onClick[] = array($this, 'lockWrite');
         //$form->addSubmit('unlock', 'Unlock write')->onClick[] = array($this, 'unlockWrite');
         
-        $form[($this->db->isLocked() ? 'lock' : 'unlock')]->setDisabled();
+        //$form[($this->db->isLocked() ? 'lock' : 'unlock')]->setDisabled();
         
         $form->addProtection('Protection timeout expired. Pleas, try again.');
         
