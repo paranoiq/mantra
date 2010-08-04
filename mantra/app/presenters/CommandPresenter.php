@@ -3,7 +3,8 @@
 use Nette\Forms\Form;
 use Nette\Forms\ISubmitterControl;
 use Mantra\FormFactory;
-use Phongo\Tools;
+use Mantra\Formater;
+use Nette\Json;
 
 class CommandPresenter extends BasePresenter {
     
@@ -35,8 +36,10 @@ class CommandPresenter extends BasePresenter {
         
         //$this->flashMessage("Command succesfully runned on '$this->database'.");
         
-        $this->template->result = Tools::formatJson($result, TRUE);
-        $this->template->copy   = Tools::encodeJson($result);
+        $formater = new Formater;
+        $formater->html = TRUE;
+        $this->template->result = $formater->formatJson($result);
+        $this->template->copy   = Json::encode($result);
     }
     
 }

@@ -7,7 +7,7 @@ use Nette\Forms\ISubmitterControl;
 class CollectionPresenter extends BasePresenter {
     
     public function actionDefault($database) {
-        $indexList = $this->db->getIndexList($this->collection, $this->database);
+        $indexList = $this->db->info->getIndexList($this->collection, $this->database);
         $dbStats = $this->db->info->getCollectionStats($this->collection, $this->database);
         
         $count = $this->db->count(array(), $this->collection, $this->database);
@@ -30,7 +30,7 @@ class CollectionPresenter extends BasePresenter {
     public function createComponentForm() {
         $form = FormFactory::create($this, 'form');
         
-        $indexList = $this->db->getIndexList($this->collection, $this->database);
+        $indexList = $this->db->info->getIndexList($this->collection, $this->database);
         
         $container = $form->addContainer('index');
         foreach ($indexList as $index => $keys) {

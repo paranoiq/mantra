@@ -8,13 +8,13 @@ class HomePresenter extends BasePresenter {
     
     public function actionDefault() {
         
-        $list = $this->db->getDatabaseList();
+        $list = $this->db->info->getDatabaseList();
         $databases = array();
         foreach ($list as $db) {
             $stats = $this->db->info->getDatabaseStats($db);
             
             $databases[$db]['id'] = Tools::escapeId($db);
-            $databases[$db]['collections'] = count($this->db->getCollectionList($db));
+            $databases[$db]['collections'] = count($this->db->info->getCollectionList($db));
             $databases[$db]['objects']  = $stats['objects'];
             $databases[$db]['dataSize'] = $stats['dataSize'];
             $databases[$db]['fileSize'] = $stats['fileSize'];
@@ -31,7 +31,7 @@ class HomePresenter extends BasePresenter {
     public function createComponentForm() {
         $form = FormFactory::create($this, 'form');
         
-        $list = $this->db->getDatabaseList();
+        $list = $this->db->info->getDatabaseList();
         $container = $form->addContainer('db');
         foreach ($list as $db) {
             $container->addCheckbox(Tools::escapeId($db));

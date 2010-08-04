@@ -7,7 +7,7 @@ use Nette\Forms\ISubmitterControl;
 class DatabasePresenter extends BasePresenter {
     
     public function actionDefault($database) {
-        $collList = $this->db->getCollectionList($this->database);
+        $collList = $this->db->info->getCollectionList($this->database);
         $collections = array();
         foreach ($collList as $collection) {
             $stats = $this->db->size(array(), $collection, $this->database);
@@ -29,7 +29,7 @@ class DatabasePresenter extends BasePresenter {
     public function createComponentForm() {
         $form = FormFactory::create($this, 'form');
         
-        $collList = $this->db->getCollectionList($this->database);
+        $collList = $this->db->info->getCollectionList($this->database);
         
         $container = $form->addContainer('coll');
         foreach ($collList as $coll) {
