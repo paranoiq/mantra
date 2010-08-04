@@ -61,6 +61,39 @@
 </fieldset>
 {?$form->render('end')}
 
+<div class='note'>
+<h4>Query operators:</h4>
+<ul>
+<li><code>$gt</code> - greater than &gt;
+<li><code>$lt</code> - less than &lt;
+<li><code>$gte</code> - greater than or equal ≥
+<li><code>$lte</code> - less than or equal ≤
+<li><code>$ne</code> - not equal ≠
+<li><code>$mod</code> - modulo operator <code>{ a : { $mod : [ 10 , 1 ] } }</code>
+</ul>
+<ul>
+<li><code>$in</code> - element value is in array
+<li><code>$nin</code> - element value is not in array
+<li><code>$all</code> - all values must match with array
+</ul>
+<ul>
+<li><code>$exists</code> - matches if key exists
+<li><code>$size</code> - matches array with n elements
+<li><code>$type</code> - matches if value is of given type
+<li><code>$elemMatch</code> - match on element in array
+</ul>
+<ul>
+<li><code>$not</code> - negate condition (since MongoDB 1.3.3)
+<li><code>$or</code> - alternative conditions (since MongoDB 1.5.3)
+<li><code>$where</code> - javascript expression <code>{ $where: "this.a > 3" }</code>
+</ul>
+
+<h4>Field operator:</h4>
+<ul>
+<li><code>$slice</code> - return subset of an array <code>{ comments: { $slice: [20, 10] } }</code>
+</ul>
+</div>
+
 <script>
     $(document).ready( function() {
         $('#pre').click( function() { 

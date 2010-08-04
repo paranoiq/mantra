@@ -21,17 +21,22 @@
 
 {control form}
 
-<p class='note'>Update operators:
-<br>$inc
-<br>$set
-<br>$unset
-<br>$push
-<br>$pushAll
-<br>$addToSet
-<br>$pop
-<br>$pull
-<br>$pullAll
-</p>
+<div class='note'>
+<h4>Update operators:</h4>
+<ul>
+<li><code>$inc</code> - increment value by given number
+<li><code>$set</code> - set new value
+<li><code>$unset</code> - unset key
+</ul>
+<ul>
+<li><code>$push</code> - append item to array
+<li><code>$pushAll</code> - append more items to array
+<li><code>$addToSet</code> - add item to set (duplicates are not inserted)
+<li><code>$pop</code> - remove last (1) or first (-1) item from array
+<li><code>$pull</code> - remove all occurences of given value from array
+<li><code>$pullAll</code> - remove all occurences of all given values from array
+</ul>
+</div>
 
 <script>
 /*    $(document).ready(function() {

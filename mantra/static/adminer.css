@@ -277,13 +277,21 @@ fieldset, legend, h2, .error, /* phongo */.message, .flash, .note {
     border-top-right-radius: 5px; }
 
 /* phongo */
-li {
-    list-style-position: inside; }
 .note {
     display: inline-block;
+    margin-top: 1.5em;
     padding: 8px;
     min-width: 50%;
     background: #DFD; }
+h4 {
+    margin: 0; }
+ul {
+    margin: 6px 0; }
+li {
+    margin: 0;
+    padding: 0;
+    xlist-style-position: inside; }
+
 .nette-dump {
     position: absolute;
     top: 40;
