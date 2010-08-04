@@ -1,14 +1,11 @@
 {extends @layout.phtml}
 
-{block #title}{$presenter->database}.{$presenter->collection} insert (mantra){/block}
+{block #title}{$presenter->database}.{$presenter->collection} select (mantra){/block}
 
-{block #action} » insert{/block}
+{block #h2}Select items: {$presenter->collection}{/block}
 
-{block #h2}Insert item: {$presenter->collection}{/block}
-
-{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Inserting'>Inserting</a>,
+{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Querying'>Querying</a>,
     <a href='http://www.mongodb.org/display/DOCS/Mongo+Extended+JSON'>Extended JSON</a>{/block}
-
 {block #content}
 
 <p>
@@ -20,4 +17,3 @@
 </p>
 
 {control form}
-
