@@ -1,0 +1,33 @@
+{extends @layout.phtml}
+
+{block #title}Processes (mantra){/block}
+
+{block #h2}Processes{/block}
+
+{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Viewing+and+Terminating+Current+Operation'>Processes</a>{/block}
+
+{block #content}
+
+
+{?$form->render('begin')}
+{?$form->render('errors')}
+<table class='data'>
+<tr><thead><th></th><th>Process id</th><td>Time</td><td>Active</td><td>Lock</td><td>Waiting</td><td>Operation</td>
+    <td>Namespace</td><td>Query</td><td>Client</td></thead></tr>
+{foreach $processList as $process}
+    <tr>
+        <td>{$form['process'][$process['opid']]->control}</td>
+        <td>{$process['opid']}</td>
+        <td>{$process['secs_running']}</td>
+        <td>{$process['active']}</td>
+        <td>{$process['lockType']}</td>
+        <td>{? echo $process['waitingForLock'] ? 'true' : 'false'}</td>
+        <td>{$process['op']}</td>
+        <td>{$process['ns']}</td>
+        <td>{!$process['query']}</td>
+        <td>{$process['client']}</td>
+    </tr>
+{/foreach}
+</table>
+{$form['kill']->control}
+{?$form->render('end')}

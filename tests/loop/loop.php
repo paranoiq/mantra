@@ -12,7 +12,7 @@ set_time_limit(0);
 
 $db->selectCollection('abcd', 'test');
 
-$n = 100000;
+$n = 1000000;
 while ($n > 0) {
     $result = $db->find(array());
     $result->fetchAll();
