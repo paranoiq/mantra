@@ -23,7 +23,8 @@
 
 {?$form->render('begin')}
 {?$form->render('errors')}
-<table class='data'>
+<table class='data r4'>
+<colgroup span='3' /><colgroup align='right' />
 <thead><td></td><th>Name</th><td>Keys</td><td>Size</td></thead>
 {foreach $indexes as $index => $info}
     <tr><td>{$form['index'][$info['id']]->control}</td><th>{$index}</th><td>{$info['keys']}</td><td>{$info['size']}</td></tr>
@@ -36,7 +37,8 @@
 
 <h3>Collection statistics</h3>
 
-<table cellspacing='0' class='info'>
+<table cellspacing='0' class='info r2'>
+<colgroup /><colgroup align='right' />
 {foreach $stats as $key => $item}
     <tr>
     {if is_array($item)}

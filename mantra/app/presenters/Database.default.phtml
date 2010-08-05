@@ -18,7 +18,8 @@
 
 {?$form->render('begin')}
 {?$form->render('errors')}
-<table class='data'>
+<table class='data r3 r4'>
+<colgroup span='2' /><colgroup span='2' align='right' />
 <tr><thead><th></th><th>Collection</th><td>Objects</td><td>Data Size</td></thead></tr>
 {foreach $collections as $collection => $info}
     <tr>
@@ -45,7 +46,9 @@
 
 
 <h3>Database statistics</h3>
-<table cellspacing='0' class='info'>
+
+<table cellspacing='0' class='info r2'>
+<col /><col align='right'>
 {foreach $databaseStats as $key => $item}
     <tr>
     {if is_array($item)}

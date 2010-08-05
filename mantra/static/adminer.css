@@ -310,3 +310,30 @@ li {
     color: red; }
 .val-bool {
     font-weight: bold; }
+
+/* <col> simulation */
+.r1 tr > *:first-child,  .r2 tr > *:nth-child(2), .r3 tr > *:nth-child(3), .r4 tr > *:nth-child(4), 
+.r5 tr > *:nth-child(5), .r6 tr > *:nth-child(6), .r7 tr > *:nth-child(7), .r8 tr > *:nth-child(8),
+.r9 tr > *:nth-child(9), .r10 tr > *:nth-child(10), .r11 tr > *:nth-child(11), .r12 tr > *:nth-child(12) {
+    text-align: right; }
+
+.c1 tr > *:first-child,  .c2 tr > *:nth-child(2), .c3 tr > *:nth-child(3), .c4 tr > *:nth-child(4), 
+.c5 tr > *:nth-child(5), .c6 tr > *:nth-child(6), .c7 tr > *:nth-child(7), .c8 tr > *:nth-child(8),
+.c9 tr > *:nth-child(9), .c10 tr > *:nth-child(10), .c11 tr > *:nth-child(11), .c12 tr > *:nth-child(12) {
+    text-align: center; }
+
+.b1 tr > *:first-child,  .b2 tr > *:nth-child(2), .b3 tr > *:nth-child(3), .b4 tr > *:nth-child(4), 
+.b5 tr > *:nth-child(5), .b6 tr > *:nth-child(6), .b7 tr > *:nth-child(7), .b8 tr > *:nth-child(8),
+.b9 tr > *:nth-child(9), .b10 tr > *:nth-child(10), .b11 tr > *:nth-child(11), .b12 tr > *:nth-child(12) {
+    font-weight: bold; }
+
+.i1 tr > *:first-child,  .i2 tr > *:nth-child(2), .i3 tr > *:nth-child(3), .i4 tr > *:nth-child(4),
+.i5 tr > *:nth-child(5), .i6 tr > *:nth-child(6), .i7 tr > *:nth-child(7), .i8 tr > *:nth-child(8),
+.i9 tr > *:nth-child(9), .i10 tr > *:nth-child(10), .i11 tr > *:nth-child(11), .i12 tr > *:nth-child(12) {
+    font-style: italic; }
+
+.m1 tr > *:first-child,  .m2 tr > *:nth-child(2), .m3 tr > *:nth-child(3), .m4 tr > *:nth-child(4),
+.m5 tr > *:nth-child(5), .m6 tr > *:nth-child(6), .m7 tr > *:nth-child(7), .m8 tr > *:nth-child(8),
+.m9 tr > *:nth-child(9), .m10 tr > *:nth-child(10), .m11 tr > *:nth-child(11), .m12 tr > *:nth-child(12) {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 10pt }

@@ -11,17 +11,18 @@
 
 {?$form->render('begin')}
 {?$form->render('errors')}
-<table class='data'>
+<table class='data r2 r3 c4'>
+<colgroup /><colgroup span='2' align='right' /><colgroup><col align='center' /></colgroup>
 <tr><thead><th></th><th>Process id</th><td>Time</td><td>Active</td><td>Lock</td><td>Waiting</td><td>Operation</td>
     <td>Namespace</td><td>Query</td><td>Client</td></thead></tr>
 {foreach $processList as $process}
     <tr>
         <td>{$form['process'][$process['opid']]->control}</td>
         <td>{$process['opid']}</td>
-        <td>{$process['secs_running']}</td>
-        <td>{$process['active']}</td>
+        <td>{$process['secs_running']}s</td>
+        <td>{? echo $process['active'] ? 'yes' : 'no'}</td>
         <td>{$process['lockType']}</td>
-        <td>{? echo $process['waitingForLock'] ? 'true' : 'false'}</td>
+        <td>{? echo $process['waitingForLock'] ? 'yes' : 'no'}</td>
         <td>{$process['op']}</td>
         <td>{$process['ns']}</td>
         <td>{!$process['query']}</td>
