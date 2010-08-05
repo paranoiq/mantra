@@ -14,6 +14,7 @@ class ProcessPresenter extends BasePresenter {
         foreach ($processList as $key => $process) {
             $processList[$key]['query'] = isset($process['query']) ? $formater->formatJson($process['query'] ?: new StdClass) : '';
             $processList[$key]['secs_running'] = isset($process['secs_running']) ?: 0;
+            $processList[$key]['lockType'] = isset($process['lockType']) ?: '';
         }
         
         $this->template->processList = $processList;
