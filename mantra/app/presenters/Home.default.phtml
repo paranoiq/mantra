@@ -29,8 +29,8 @@
         <td><b><a href='{plink Database:default, database=>$db}'>{$db}</a></b></td>
         <td>{$info['collections']}</td>
         <td>{$info['objects']}</td>
-        <td>{$info['dataSize']}</td>
-        <td>{$info['fileSize']}</td>
+        <td>{$info['dataSize']|bytes:1}</td>
+        <td>{$info['fileSize']|bytes:1}</td>
     </tr>
 {/foreach}
 </tbody>

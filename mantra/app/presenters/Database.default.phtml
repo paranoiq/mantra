@@ -26,7 +26,7 @@
         <td>{$form['coll'][$info['id']]->control}</td>
         <td><b><a href='{plink Collection:default, database=>$presenter->database, collection=>$collection}'>{$collection}</a></b></td>
         <td>{$info['objects']}</td>
-        <td>{$info['dataSize']}</td>
+        <td>{$info['dataSize']|bytes:1}</td>
     </tr>
 {/foreach}
 </table>

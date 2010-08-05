@@ -27,7 +27,7 @@
 <colgroup span='3' /><colgroup align='right' />
 <thead><td></td><th>Name</th><td>Keys</td><td>Size</td></thead>
 {foreach $indexes as $index => $info}
-    <tr><td>{$form['index'][$info['id']]->control}</td><th>{$index}</th><td>{$info['keys']}</td><td>{$info['size']}</td></tr>
+    <tr><td>{$form['index'][$info['id']]->control}</td><th>{$index}</th><td>{$info['keys']}</td><td>{$info['size']|bytes:1}</td></tr>
 {/foreach}
 </table>
 <fieldset>
