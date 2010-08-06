@@ -16,51 +16,57 @@
 <a href='{plink Import:default}'>Import</a>
 </p>
 
-{?$queryForm->render('begin')}
-{?$queryForm->render('errors')}
-
-<fieldset><legend>Query (JSON)</legend>
-    {$queryForm['query']->control}
-</fieldset>
-<fieldset><legend>Order</legend>
-{foreach $queryForm['key']->getComponents() as $n => $key}
-    {$key->control} {$queryForm['order'][$n]->control} {$queryForm['order'][$n]->label}<br>
-{/foreach}
-    {$queryForm['more']->control} {$queryForm['less']->control}
-</fieldset>
-<fieldset><legend>Limit</legend>
-    {$queryForm['limit']->control}
-</fieldset>
-<fieldset><legend>Action</legend>
-    {$queryForm['select']->control}
-</fieldset>
-{?$queryForm->render('end')}
-
-<br>
 {?$form->render('begin')}
 {?$form->render('errors')}
+
+<fieldset><legend>Query (JSON)</legend>
+    {$form['query']->control}
+</fieldset>
+<fieldset><legend>Order</legend>
+{foreach $form['key']->getComponents() as $n => $key}
+    {$key->control} {$form['order'][$n]->control} {$form['order'][$n]->label}<br>
+{/foreach}
+    {$form['more']->control} {$form['less']->control}
+</fieldset>
+<fieldset><legend>Limit</legend>
+    {$form['limit']->control}
+</fieldset>
+<fieldset><legend>Action</legend>
+    {$form['select']->control}
+</fieldset>
+{?$form->render('end')}
+
+<br>
+{?$actionForm->render('begin')}
+{?$actionForm->render('errors')}
+{include @paginator.phtml}
+<br>
 <table class='data'>
-<thead><td></td><td>Edit</td><td>Id</td><td>Data &nbsp; <label><input type='checkbox' id='pre' checked /> flatten</label></td></thead>
+<thead><td><input type='checkbox' onclick='$(":checkbox").attr("checked", true)'/></td><td>Edit</td><td>Id</td><td>Data &nbsp; <label><input type='checkbox' id='pre' checked /> flatten</label></td></thead>
 {foreach $items as $id => $item}
 <tr>
-    <td>{$form['item'][$id]->control}</td>
+    <td>{$actionForm['item'][$id]->control}</td>
     <td><a href='{plink Edit:default, database=>$presenter->database, collection=>$presenter->collection, id=>$id}'>edit</a></td>
     <td><a href='{plink Show:default, id=>$id}'>{$id}</a></td>
     <td class='itemdata'>{!$item}</td>
 </tr>
 {/foreach}
 </table>
+
+{include @paginator.phtml}
+({$paginator->getItemCount()} items) {$actionForm['all']->control} {$actionForm['all']->label}<br>
+
 <fieldset>
-    {$form['update']->control}
-    {$form['clone']->control}
-    {$form['delete']->control}
+    {$actionForm['update']->control}
+    {$actionForm['clone']->control}
+    {$actionForm['delete']->control}
 </fieldset>
 <fieldset>
-    {$form['exportAction']->control}
-    {$form['exportFormat']->control}
-    {$form['export']->control}
+    {$actionForm['exportAction']->control}
+    {$actionForm['exportFormat']->control}
+    {$actionForm['export']->control}
 </fieldset>
-{?$form->render('end')}
+{?$actionForm->render('end')}
 
 <div class='note'>
 <h4>Query operators:</h4>

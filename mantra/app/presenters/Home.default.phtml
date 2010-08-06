@@ -15,7 +15,7 @@
 <a href='{plink Status:default}'>Server status</a>
 </p>
 
-{if isset($version)}<p>MongoDB server: {!$version}; PHP Mongo extension: <b>{? echo \Mongo::VERSION; }</b></p><br>{/if}
+{if isset($version)}<p>MongoDB server: {!$version}; PHP Mongo extension: <b>{? echo \Mongo::VERSION; }</b></p>{/if}
 
 {?$form->render('begin')}
 {?$form->render('errors')}

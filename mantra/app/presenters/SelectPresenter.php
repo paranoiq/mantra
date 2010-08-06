@@ -5,6 +5,7 @@ use Mantra\Formater;
 use Nette\Forms\Form;
 use Nette\Forms\ISubmitterControl;
 use Nette\Environment;
+use Nette\Paginator;
 
 class SelectPresenter extends BasePresenter {
     
@@ -12,12 +13,12 @@ class SelectPresenter extends BasePresenter {
     public $q;
     
     
-    public function actionDefault($database) {
-        $this->counter(($this->getRequest()->getMethod() == 'POST') ? 0 : NULL);
+    public function actionDefault() {
+        $this->counter(count($this->getRequest()->getParams()) <= 3 ? NULL : 0);
         
-        $queryForm = $this->getComponent('queryForm');
-        $queryForm->setDefaults(array('limit' => 25));
-        $values = $queryForm->getValues();
+        $form = $this->getComponent('form');
+        $form->setDefaults(array('limit' => 25));
+        $values = $form->getValues();
         
         // query
         $query = array();
@@ -35,12 +36,14 @@ class SelectPresenter extends BasePresenter {
             $cursor->orderBy($order);
         }
         
-        // limit & offset
+        // pagination
         if (!$values['limit']) {
             $values['limit'] = 25;
-            $queryForm['limit']->value = 25;
+            $form['limit']->value = 25;
         }
-        $cursor->limit($values['limit']);
+        $paginator = $this->preparePaginator($cursor->count(), $values['limit'], $values['page'], !$values['p']);
+        $cursor->setLimit($values['limit']);
+        $cursor->setOffset($paginator->offset);
         
         // fetching
         $items = array();
@@ -56,12 +59,61 @@ class SelectPresenter extends BasePresenter {
         }
         $this->template->items = $items;
         
-        $this->template->form = $this->getComponent('form');
-        $this->template->queryForm = $queryForm;
+        $this->template->actionForm = $this->getComponent('actionForm');
+        $this->template->form = $form;
+        $form['p']->setValue(0);
     }
     
-    public function createComponentQueryForm() {
-        $form = FormFactory::create($this, 'queryForm');
+    private function preparePaginator($count, $limit, $page, $reset) {
+        $session = Environment::getSession('Select');
+        if ($reset) {
+            $page = 1;
+            $session->prevPage = $count / $limit / 2;
+        }
+        
+        $paginator = new Paginator();
+        $paginator->itemCount = $count;
+        $paginator->itemsPerPage = $limit;
+        $paginator->setPage($page);
+        
+        $page = $paginator->page;
+        if ($paginator->pageCount < 2) {
+            $steps = array($page);
+            
+        } else {
+            $arr = range(max($paginator->firstPage, $page - 2), min($paginator->lastPage, $page + 2));
+            
+            $arr[] = $paginator->firstPage;
+            $arr[] = round(($paginator->firstPage + $page) / 2, 0);
+            
+            $arr[] = $paginator->lastPage;
+            $arr[] = round(($paginator->lastPage + $page) / 2, 0);
+            
+            $jump = abs($session->prevPage - $page);
+            $arr[] = max(round($page - $jump / 2, 0), 1);
+            $arr[] = max(round($page - $jump / 4, 0), 1);
+            $arr[] = min(round($page + $jump / 4, 0), $paginator->lastPage);
+            $arr[] = min(round($page + $jump / 2, 0), $paginator->lastPage);
+            
+            sort($arr);
+            $steps = array_values(array_unique($arr));
+        }
+        
+        $session->prevPage = $page;
+        
+        $query = Environment::getHttpRequest()->getUri()->getQuery();
+        $query = preg_replace('/&page=[0-9]*/', '', $query);
+        $query = preg_replace('/&p=[0-9]*/', '', $query); 
+        $this->template->query = $query;
+         
+        $this->template->steps = $steps;
+        $this->template->paginator = $paginator;
+        
+        return $paginator;
+    }
+    
+    public function createComponentForm() {
+        $form = FormFactory::create($this, 'form', Form::GET);
         
         $form->addTextArea('query', 'Query (JSON)', 60, 6)
             ->setEmptyValue('{"": ""}');
@@ -87,18 +139,23 @@ class SelectPresenter extends BasePresenter {
                 ->addRule(Form::INTEGER, 'Limit must be a positive number.')
                 ->addRule(Form::RANGE, 'Limit must be a positive number.', array(1, PHP_INT_MAX));
         
+        $form->addHidden('p', 0);
+        $form->addHidden('page', 1);
+        
         $form->addSubmit('select', 'Select');
         
         return $form;
     }
     
-    public function createComponentForm() {
-        $form = FormFactory::create($this, 'form');
+    public function createComponentActionForm() {
+        $form = FormFactory::create($this, 'actionForm');
         
         $items = $form->addContainer('item');
         foreach ($this->template->items as $id => $item) {
             $items->addCheckbox($id);
         }
+        
+        $form->addCheckbox('all', 'all matching items');
         
         $form->addSubmit('update', 'Update')->onClick[] = array($this, 'updateItems');
         $form->addSubmit('clone', 'Clone')->onClick[] = array($this, 'cloneItems');
@@ -130,6 +187,7 @@ class SelectPresenter extends BasePresenter {
         
         if ($deleted) $this->flashMessage("$deleted items deleted from '$this->database.$this->collection'.");
         
+        $this->removeComponent($this->getComponent('actionForm'));
         $this->actionDefault();
     }
     
@@ -162,14 +220,14 @@ class SelectPresenter extends BasePresenter {
     
     public function more(ISubmitterControl $button) {
         $this->counter(1);
-        $this->removeComponent($this->getComponent('queryForm'));
-        $this->template->queryForm = $this->getComponent('queryForm');
+        $this->removeComponent($this->getComponent('form'));
+        $this->template->form = $this->getComponent('form');
     }
     
     public function less(ISubmitterControl $button) {
         $this->counter(-1);
-        $this->removeComponent($this->getComponent('queryForm'));
-        $this->template->queryForm = $this->getComponent('queryForm');
+        $this->removeComponent($this->getComponent('form'));
+        $this->template->form = $this->getComponent('form');
     }
     
 }

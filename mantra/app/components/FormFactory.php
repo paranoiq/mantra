@@ -18,8 +18,10 @@ class FormFactory {
     /**
      * @return Nette\AppForm
      */
-    static public function create($parent, $name, $naked = FALSE) {
-        $form = new AppForm($parent, $name);
+    static public function create($parent, $name, $method = NULL, $naked = FALSE) {
+        $form = new AppForm();
+        if ($method) $form->setMethod($method);
+        $parent->addComponent($form, $name);
         
         //$form->renderer->wrappers['control']['.reset'] = 'button';
         $form->renderer->wrappers['label']['requiredsuffix'] = ' •';

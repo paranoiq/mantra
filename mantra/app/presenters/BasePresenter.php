@@ -65,7 +65,7 @@ class BasePresenter extends Presenter {
     
     
     public function createComponentLangForm($name) {
-        $form = FormFactory::create($this, 'langForm', FormFactory::NAKED);
+        $form = FormFactory::create($this, 'langForm', NULL, FormFactory::NAKED);
         $form->onSubmit[] = array($this, 'selectLanguage');
         
         $select = $form->addSelect('language', 'Language:', Language::getAvailableLanguages());
@@ -75,7 +75,7 @@ class BasePresenter extends Presenter {
     }
     
     public function createComponentDbForm($name) {
-        $form = FormFactory::create($this, 'dbForm', FormFactory::NAKED);
+        $form = FormFactory::create($this, 'dbForm', NULL, FormFactory::NAKED);
         $form->onSubmit[] = array($this, 'selectDatabase');
         
         $dbList = $this->db->info->getDatabaseList();

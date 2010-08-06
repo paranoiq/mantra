@@ -40,7 +40,7 @@ input[name='logout'] { /* IEx */
 
 /* tables */
 table {
-    margin: 0 12px 12px 0;
+    margin: 12px 12px 12px 0;
     border: 1px #AAA solid;
     border-collapse: collapse; } /* phongo */
 td, th {
@@ -292,6 +292,8 @@ li {
     padding: 0;
     list-style-type: circle;
     xlist-style-position: inside; }
+.paginator {
+    display: inline-block; }
 
 .nette-dump {
     position: absolute;
