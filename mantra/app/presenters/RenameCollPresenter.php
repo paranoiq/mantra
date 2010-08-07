@@ -34,7 +34,7 @@ class RenameCollPresenter extends BasePresenter {
         $values = $form->getValues();
         $newDatabase = $values['database'] ? $values['database'] : $this->database;
         
-        $this->db->renameCollection($values['collection'], $this->collection, $newDatabase, $this->database);
+        $this->db->getDatabase($this->database)->renameCollection($values['collection'], $newDatabase, $this->collection);
         
         $this->flashMessage("Collection '$this->database.$this->collection' was renamed to '" . ($newDatabase ? "$newDatabase." : '') . "$values[collection]'.");
         

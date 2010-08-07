@@ -7,10 +7,10 @@ use Nette\Forms\ISubmitterControl;
 class CollectionPresenter extends BasePresenter {
     
     public function actionDefault($database) {
-        $indexList = $this->db->info->getIndexList($this->collection, $this->database);
-        $dbStats = $this->db->info->getCollectionStats($this->collection, $this->database);
+        $indexList = $this->db->getDatabase($this->database)->getInfo()->getIndexList($this->collection);
+        $dbStats   = $this->db->getDatabase($this->database)->getInfo()->getCollectionStats($this->collection);
         
-        $count = $this->db->count(array(), $this->collection, $this->database);
+        $count = $this->db->getDatabase($this->database)->count(array(), $this->collection);
         
         $indexes = array();
         foreach ($indexList as $index => $keys) {
@@ -30,7 +30,7 @@ class CollectionPresenter extends BasePresenter {
     public function createComponentForm() {
         $form = FormFactory::create($this, 'form');
         
-        $indexList = $this->db->info->getIndexList($this->collection, $this->database);
+        $indexList = $this->db->getDatabase($this->database)->getInfo()->getIndexList($this->collection);
         
         $container = $form->addContainer('index');
         foreach ($indexList as $index => $keys) {
@@ -51,7 +51,7 @@ class CollectionPresenter extends BasePresenter {
             if (!$checked) continue;
             
             $index = Tools::unescapeId($name);
-            $this->db->dropIndex($index, $this->collection, $this->database);
+            $this->db->getDatabase($this->database)->dropIndex($index, $this->collection);
             
             $this->flashMessage("Index '$index' on collection '$this->database.$this->collection' was dropped.");
         }

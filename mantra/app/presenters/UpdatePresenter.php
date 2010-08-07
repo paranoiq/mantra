@@ -50,16 +50,15 @@ class UpdatePresenter extends BasePresenter {
         $values = $button->parent->getValues();
         $delete = $values['delete'];
         
-        //$this->db->setSafeMode();
+        $db = $this->db->getDatabase($this->database);
         
         if ($delete) {
-            $this->db->delete($values['query'], $values['single'], $this->collection, $this->database);
+            $db->delete($values['query'], $values['single'], $this->collection);
         } else {
-            $this->db->update($values['query'], $values['modifier'], $values['single'], $values['upsert'], 
-                $this->collection, $this->database);
+            $db->update($values['query'], $values['modifier'], $values['single'], $values['upsert'], $this->collection);
         }
         
-        $affected = $this->db->isSync() ? ' (' . $this->db->getAffectedItems() . ' items affected)' : ' (asynchronous)';
+        $affected = $db->isSync() ? ' (' . $db->getAffectedItems() . ' items affected)' : ' (asynchronous)';
         
         if ($delete) {
             $this->flashMessage("Items in '$this->database.$this->collection' was deleted$affected.");

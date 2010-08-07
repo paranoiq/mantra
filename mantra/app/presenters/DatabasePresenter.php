@@ -7,10 +7,10 @@ use Nette\Forms\ISubmitterControl;
 class DatabasePresenter extends BasePresenter {
     
     public function actionDefault($database) {
-        $collList = $this->db->info->getCollectionList($this->database);
+        $collList = $this->db->getDatabase($this->database)->getInfo()->getCollectionList();
         $collections = array();
         foreach ($collList as $collection) {
-            $stats = $this->db->size(array(), $collection, $this->database);
+            $stats = $this->db->getDatabase($this->database)->size(array(), $collection);
             
             $collections[$collection]['id'] = Tools::escapeId($collection);
             $collections[$collection]['dataSize'] = $stats['size'];
@@ -18,7 +18,7 @@ class DatabasePresenter extends BasePresenter {
         }
         $this->template->collections = $collections;
         
-        $stats = $this->db->info->getDatabaseStats($database);
+        $stats = $this->db->getDatabase($database)->getInfo()->getDatabaseStats();
         $stats['avgObjSize'] = round($stats['avgObjSize'], 0);
         $this->template->databaseStats = $stats;
         
@@ -29,7 +29,7 @@ class DatabasePresenter extends BasePresenter {
     public function createComponentForm() {
         $form = FormFactory::create($this, 'form');
         
-        $collList = $this->db->info->getCollectionList($this->database);
+        $collList = $this->db->getDatabase($this->database)->getInfo()->getCollectionList();
         
         $container = $form->addContainer('coll');
         foreach ($collList as $coll) {
@@ -77,7 +77,7 @@ class DatabasePresenter extends BasePresenter {
             if (!$checked) continue;
             
             $collection = Tools::unescapeId($name);
-            $this->db->emptyCollection($collection, $this->database);
+            $this->db->getDatabase($this->database)->emptyCollection($collection);
             
             $this->flashMessage("Collection '$this->database.$collection' was emptied.");
         }
@@ -93,7 +93,7 @@ class DatabasePresenter extends BasePresenter {
             if (!$checked) continue;
             
             $collection = Tools::unescapeId($name);
-            $this->db->dropCollection($collection, $this->database);
+            $this->db->getDatabase($this->database)->dropCollection($collection);
             
             $this->flashMessage("Collection '$this->database.$collection' was dropped.");
         }
@@ -109,7 +109,7 @@ class DatabasePresenter extends BasePresenter {
             if (!$checked) continue;
             
             $collection = Tools::unescapeId($name);
-            $this->db->dropIndexes($collection, $this->database);
+            $this->db->getDatabase($this->database)->dropIndexes($collection);
             
             $this->flashMessage("Indexes on collection '$this->database.$collection' was dropped.");
         }
@@ -125,7 +125,7 @@ class DatabasePresenter extends BasePresenter {
             if (!$checked) continue;
             
             $collection = Tools::unescapeId($name);
-            $this->db->reindexCollection($collection, $this->database);
+            $this->db->getDatabase($this->database)->reindexCollection($collection);
             
             $this->flashMessage("Collection '$this->database.$collection' was reindexed.");
         }

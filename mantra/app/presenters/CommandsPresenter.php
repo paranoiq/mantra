@@ -4,7 +4,7 @@ class CommandsPresenter extends BasePresenter {
     
     public function actionDefault() {
         
-        $commands = $this->db->info->getCommandList();
+        $commands = $this->db->getInfo()->getCommandList();
         
         foreach ($commands as $name => $command) {
             $help = str_replace("\n", '<br>', $command['help']);

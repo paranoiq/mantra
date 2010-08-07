@@ -8,13 +8,13 @@ class HomePresenter extends BasePresenter {
     
     public function actionDefault() {
         
-        $list = $this->db->info->getDatabaseList();
+        $list = $this->db->getInfo()->getDatabaseList();
         $databases = array();
         foreach ($list as $db) {
-            $stats = $this->db->info->getDatabaseStats($db);
+            $stats = $this->db->getDatabase($db)->getInfo()->getDatabaseStats();
             
             $databases[$db]['id'] = Tools::escapeId($db);
-            $databases[$db]['collections'] = count($this->db->info->getCollectionList($db));
+            $databases[$db]['collections'] = count($this->db->getDatabase($db)->getInfo()->getCollectionList());
             $databases[$db]['objects']  = $stats['objects'];
             $databases[$db]['dataSize'] = $stats['dataSize'];
             $databases[$db]['fileSize'] = $stats['fileSize'];
@@ -24,14 +24,14 @@ class HomePresenter extends BasePresenter {
         
         $this->template->form = $this->getComponent('form');
         
-        list($this->template->version) = explode(',', $this->db->info->getVersionInfo());
+        list($this->template->version) = explode(',', $this->db->getInfo()->getVersionInfo());
     }
     
     
     public function createComponentForm() {
         $form = FormFactory::create($this, 'form');
         
-        $list = $this->db->info->getDatabaseList();
+        $list = $this->db->getInfo()->getDatabaseList();
         $container = $form->addContainer('db');
         foreach ($list as $db) {
             $container->addCheckbox(Tools::escapeId($db));
@@ -56,7 +56,7 @@ class HomePresenter extends BasePresenter {
             if (!$checked) continue;
             
             $database = Tools::unescapeId($name);
-            $this->db->dropDatabase($database);
+            $this->db->getDatabase($database)->drop();
             
             $this->flashMessage("Database '$database' was dropped.");
         }
@@ -72,7 +72,7 @@ class HomePresenter extends BasePresenter {
             if (!$checked) continue;
             
             $database = Tools::unescapeId($name);
-            $this->db->repairDatabase($database, $values['preserve'], $values['backup']);
+            $this->db->getDatabase($database)->repair($values['preserve'], $values['backup']);
             
             $this->flashMessage("Database '$database' was repaired.");
         }

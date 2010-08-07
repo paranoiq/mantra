@@ -47,7 +47,7 @@ class BasePresenter extends Presenter {
         
         // collections
         if ($this->database) {
-            $collList = $this->db->info->getCollectionList($this->database);
+            $collList = $this->db->getDatabase($this->database)->getInfo()->getCollectionList();
             $this->template->collList = $collList;
         } else {
             $this->template->collList = array();
@@ -78,7 +78,7 @@ class BasePresenter extends Presenter {
         $form = FormFactory::create($this, 'dbForm', NULL, FormFactory::NAKED);
         $form->onSubmit[] = array($this, 'selectDatabase');
         
-        $dbList = $this->db->info->getDatabaseList();
+        $dbList = $this->db->getInfo()->getDatabaseList();
         $dbs = array();
         foreach ($dbList as $db) {
             $dbs[$db] = $db;

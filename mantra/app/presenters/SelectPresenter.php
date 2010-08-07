@@ -24,7 +24,7 @@ class SelectPresenter extends BasePresenter {
         $query = array();
         if ($values['query']) $query = $values['query'];
         
-        $cursor = $this->db->find($query, NULL, $this->collection, $this->database);
+        $cursor = $this->db->getDatabase($this->database)->find($query, NULL, $this->collection);
         
         // sorting
         if ($values['key']) {
@@ -76,16 +76,13 @@ class SelectPresenter extends BasePresenter {
         $paginator->itemsPerPage = $limit;
         $paginator->setPage($page);
         
-        $page = $paginator->page;
         if ($paginator->pageCount < 2) {
             $steps = array($page);
-            
         } else {
             $arr = range(max($paginator->firstPage, $page - 2), min($paginator->lastPage, $page + 2));
             
             $arr[] = $paginator->firstPage;
             $arr[] = round(($paginator->firstPage + $page) / 2, 0);
-            
             $arr[] = $paginator->lastPage;
             $arr[] = round(($paginator->lastPage + $page) / 2, 0);
             
@@ -181,7 +178,7 @@ class SelectPresenter extends BasePresenter {
             if ($on != 'on') continue;
             if (!preg_match('/^[0-9a-f]{24}$/i', $id)) continue;
             
-            $this->db->delete(array('_id' => new MongoId($id)), TRUE, $this->collection, $this->database);
+            $this->db->getDatabase($this->database)->delete(array('_id' => new MongoId($id)), TRUE, $this->collection);
             $deleted++;
         }
         

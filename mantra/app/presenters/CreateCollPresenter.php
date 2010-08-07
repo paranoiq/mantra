@@ -37,7 +37,7 @@ class CreateCollPresenter extends BasePresenter {
     public function createCollection($form) {
         $values = $form->getValues();
         
-        $this->db->createCollection($values['collection'], $this->database);
+        $this->db->getDatabase($this->database)->createCollection($values['collection']);
         
         $this->flashMessage("Collection '$values[collection]' was created.");
         

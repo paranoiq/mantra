@@ -8,13 +8,13 @@ class StatusPresenter extends BasePresenter {
     
     public function actionDefault() {
         
-        $this->template->version = $this->db->info->getVersionInfo();
+        $this->template->version = $this->db->getInfo()->getVersionInfo();
         
-        $this->template->status = $this->db->info->getServerStatus();
+        $this->template->status = $this->db->getInfo()->getServerStatus();
         
         $this->template->masterSlave = $this->db->isMaster() ? 'master' : 'slave';
         
-        $this->template->cmdLine = implode(' ', $this->db->info->getStartupOptions());
+        $this->template->cmdLine = implode(' ', $this->db->getInfo()->getStartupOptions());
         
         $servers = $this->db->getServers();
         list($server, $port) = explode(':', $servers[0]);
