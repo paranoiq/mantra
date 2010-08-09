@@ -17,8 +17,9 @@ class CreateCollPresenter extends BasePresenter {
         $form->addGroup();
         $form->addText('collection', 'Name')
             ->addRule(Form::FILLED, 'Collection name must be filled.')
+            ->addRule(Form::MAX_LENGTH, 'Collection name is too long.', 127 - strlen($this->database))
             ->addRule(Form::REGEXP, 'Collection name includes an invalid character. Allowed are all ASCII characters except controls, space, ", $ and DEL.', 
-                '/^[-!#\x25-\x7E]+$/');
+                '/^[!#\x25-\x2D\x2F-\x7E]+(\.[!#\x25-\x2D\x2F-\x7E]+)*$/');
         
         $form->addCheckbox('capped', 'Capped (fixed size)');
         $form->addText('size', 'Size in bytes')
