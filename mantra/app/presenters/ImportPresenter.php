@@ -95,12 +95,12 @@ class ImportPresenter extends BasePresenter {
             $batch[] = $obj;
             
             if ($b > 1000) {
-                $this->db->getDatabase($this->database)->batchInsert($batch, $this->collection);
+                $this->db->database($this->database)->batchInsert($batch, $this->collection);
                 $b = 0;
                 $batch = array();
             }
         }
-        if ($batch) $this->db->getDatabase($this->database)->batchInsert($batch, $this->collection);
+        if ($batch) $this->db->database($this->database)->batchInsert($batch, $this->collection);
         
         return $n;
     }

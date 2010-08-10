@@ -50,7 +50,7 @@ class UpdatePresenter extends BasePresenter {
         $values = $button->parent->getValues();
         $delete = $values['delete'];
         
-        $db = $this->db->getDatabase($this->database);
+        $db = $this->db->database($this->database);
         
         if ($delete) {
             $db->delete($values['query'], $values['single'], $this->collection);

@@ -47,7 +47,7 @@ class BasePresenter extends Presenter {
         
         // collections
         if ($this->database) {
-            $collList = $this->db->getDatabase($this->database)->getInfo()->getCollectionList();
+            $collList = $this->db->database($this->database)->getInfo()->getCollectionList();
             $this->template->collList = $collList;
         } else {
             $this->template->collList = array();

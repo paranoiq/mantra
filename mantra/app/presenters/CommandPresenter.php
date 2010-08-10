@@ -30,7 +30,7 @@ class CommandPresenter extends BasePresenter {
     public function runCommand(ISubmitterControl $button) {
         $values = $button->parent->getValues();
         
-        $result = $this->db->getDatabase($this->database)->runCommand($values['command']);
+        $result = $this->db->database($this->database)->runCommand($values['command']);
         
         //dump($result);
         

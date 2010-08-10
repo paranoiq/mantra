@@ -24,7 +24,7 @@ class SelectPresenter extends BasePresenter {
         $query = array();
         if ($values['query']) $query = $values['query'];
         
-        $cursor = $this->db->getDatabase($this->database)->find($query, NULL, $this->collection);
+        $cursor = $this->db->database($this->database)->find($query, NULL, $this->collection);
         
         // sorting
         if ($values['key']) {
@@ -178,7 +178,7 @@ class SelectPresenter extends BasePresenter {
             if ($on != 'on') continue;
             if (!preg_match('/^[0-9a-f]{24}$/i', $id)) continue;
             
-            $this->db->getDatabase($this->database)->delete(array('_id' => new MongoId($id)), TRUE, $this->collection);
+            $this->db->database($this->database)->delete(array('_id' => new MongoId($id)), TRUE, $this->collection);
             $deleted++;
         }
         

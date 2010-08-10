@@ -72,7 +72,7 @@ class CreateIndexPresenter extends BasePresenter {
         if ($values['background']) $options['background'] = 1;
         if ($values['name']) $options['name'] = $values['name'];
         
-        $this->db->getDatabase($this->database)->createIndex($keys, $options, $this->collection);
+        $this->db->database($this->database)->createIndex($keys, $options, $this->collection);
         
         $this->flashMessage("Index " . ($values['name'] ? "'$values[name]' " : '') . "on collection '$this->database.$this->collection' was created.");
         

@@ -28,7 +28,7 @@ class InsertPresenter extends BasePresenter {
     public function insertItem(ISubmitterControl $button) {
         $values = $button->parent->getValues();
         
-        $this->db->getDatabase($this->database)->insert($values['object'], $this->collection);
+        $this->db->database($this->database)->insert($values['object'], $this->collection);
            
         $this->flashMessage("A new item was inserted into '$this->database.$this->collection'.");
         
