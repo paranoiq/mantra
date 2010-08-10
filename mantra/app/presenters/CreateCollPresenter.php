@@ -26,6 +26,7 @@ class CreateCollPresenter extends BasePresenter {
             ->addConditionOn($form['capped'], Form::FILLED)
                 ->addRule(Form::NUMERIC, 'Size must be a number.');
         $form->addText('max', 'Maximum elements')
+            ->addCondition(Form::FILLED)            
             ->addConditionOn($form['capped'], Form::FILLED)
                 ->addRule(Form::NUMERIC, 'Maximum elements must be a number.');
         
