@@ -7,9 +7,8 @@ use Nette\Forms\ISubmitterControl;
 class DatabasePresenter extends BasePresenter {
     
     public function actionDefault($database) {
-        $collList = $this->db->database($this->database)->getInfo()->getCollectionList();
-        $collections = array();
-        foreach ($collList as $collection) {
+        $collections = $this->db->database($this->database)->getInfo()->getCollectionInfo();
+        foreach ($collections as $collection => $info) {
             $stats = $this->db->database($this->database)->size(array(), $collection);
             
             $collections[$collection]['id'] = Tools::escapeId($collection);

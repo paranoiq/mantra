@@ -18,11 +18,11 @@ class RenameCollPresenter extends BasePresenter {
         $form->addText('collection', 'New name')
             ->addRule(Form::FILLED, 'Collection name must be filled.')
             ->addRule(Form::REGEXP, 'Collection name includes an invalid character. Only letters, numbers and underscore are allowed.', 
-                '/^[_a-zA-Z][_a-zA-Z0-9]*$/');
+                '/^[!#\x25-\x2D\x2F-\x7E]+(\.[!#\x25-\x2D\x2F-\x7E]+)*$/');
         $form->addText('database', 'Move to database')
             ->addCondition(Form::FILLED)
                 ->addRule(Form::REGEXP, 'Collection name includes an invalid character. Only letters, numbers and underscore are allowed.', 
-                    '/^[_a-zA-Z][_a-zA-Z0-9]*$/');
+                    "/^[-!#%&'()+,0-9;>=<@A-Z\[\]^_`a-z{}~]+$/");
         
         $form->addSubmit('rename', 'Rename collection');
         $form->addProtection('Protection timeout expired. Pleas, try again.');
