@@ -25,6 +25,8 @@ class CreateCollPresenter extends BasePresenter {
             ->addCondition(Form::FILLED)
             ->addRule(Form::FLOAT, 'Size must be a positive number.')
             ->addRule(Form::RANGE, 'Size must be a positive number.', array(0, NULL));
+        $form->addCheckbox('noIndex', 'No auto index on `_id`');
+        
         $form->addCheckbox('capped', 'Capped (fixed size)');
         $form->addText('max', 'Maximum elements')
             ->addCondition(Form::FILLED)
@@ -41,11 +43,13 @@ class CreateCollPresenter extends BasePresenter {
     public function createCollection($form) {
         $values = $form->getValues();
         
-        $capped = empty($values['capped']) ? FALSE : TRUE;
-        $size = empty($values['size']) ? 0 : $values['size'] * 1048576;
-        $max = (empty($values['max']) || !$capped) ? 0 : $values['max'];
+        $options = array();
+        if (!empty($values['capped'])) $options['capped'] = TRUE;
+        if (!empty($values['size']))   $options['size'] = $values['size'] * 1048576;
+        if (!empty($values['max']) || !empty($options['capped'])) $options['max'] = $values['max'];
+        if (!empty($values['noIndex'])) $options['autoIndexId'] = FALSE;
         
-        $this->db->database($this->database)->createCollection($values['collection'], $capped, $size, $max);
+        $this->db->database($this->database)->createCollection($values['collection'], $options);
         
         $this->flashMessage("Collection '$values[collection]' was created.");
         

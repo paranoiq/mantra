@@ -8,7 +8,7 @@ class CollectionPresenter extends BasePresenter {
     
     public function actionDefault($database) {
         $indexList = $this->db->database($this->database)->getInfo()->getIndexList($this->collection);
-        $dbStats   = $this->db->database($this->database)->getInfo()->getCollectionStats($this->collection);
+        $stats = $this->db->database($this->database)->getInfo()->getCollectionStats($this->collection);
         
         $this->template->info = $this->db->database($this->database)->getInfo()->getCollectionInfo($this->collection);
         
@@ -16,14 +16,17 @@ class CollectionPresenter extends BasePresenter {
         foreach ($indexList as $index => $keys) {
             $indexes[$index]['id'] = Tools::escapeId($index);
             $indexes[$index]['keys'] = $keys;
-            $indexes[$index]['size'] = $dbStats['indexSizes'][$index];
+            $indexes[$index]['size'] = $stats['indexSizes'][$index];
         }
         $this->template->indexes = $indexes;
         
-        unset($dbStats['ns']);
-        unset($dbStats['indexSizes']);
-        $dbStats['avgObjSize'] = round($dbStats['avgObjSize'], 0);
-        $this->template->stats = $dbStats;
+        unset($stats['ns']);
+        unset($stats['indexSizes']);
+        $stats['avgObjSize'] = round($stats['avgObjSize'], 0);
+        $this->template->stats = $stats;
+        
+        $usage = $this->db->database($this->database)->getInfo()->getUsage($this->collection);
+        $this->template->usage = $usage;
         
         $this->template->form = $this->getComponent('form');
     }

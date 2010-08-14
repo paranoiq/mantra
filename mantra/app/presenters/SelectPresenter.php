@@ -67,7 +67,7 @@ class SelectPresenter extends BasePresenter {
         $session = Environment::getSession('Select');
         if ($reset) {
             $page = 1;
-            $session->prevPage = $count / $limit / 2;
+            $session->prevPage = 1;
         }
         
         $paginator = new Paginator();
@@ -83,15 +83,15 @@ class SelectPresenter extends BasePresenter {
             
             $arr[] = $paginator->firstPage;
             $arr[] = $paginator->lastPage;
-            if ($jump < $paginator->pageCount / 10) {
-                $arr[] = round(($paginator->firstPage + $page) / 2, 0);
+            if ($jump < $paginator->pageCount / 100) {
+                $arr[] = max(round(($paginator->firstPage + $page) / 2, 0), 1);
                 $arr[] = round(($paginator->lastPage  + $page) / 2, 0);
-                if ($jump < $paginator->pageCount / 20) {
-                    $arr[] = round(($paginator->firstPage + $page) / 4, 0);
-                    $arr[] = round(($paginator->lastPage  + $page) / 4, 0);
-                    if ($jump < $paginator->pageCount / 50) {
-                        $arr[] = round(($paginator->firstPage + $page) / 8, 0);
-                        $arr[] = round(($paginator->lastPage  + $page) / 8, 0);
+                if ($jump < $paginator->pageCount / 30) {
+                    $arr[] = max(round(($paginator->firstPage + $page) / 4, 0), 1);
+                    $arr[] = round(($paginator->lastPage  + $page * 3) / 4, 0);
+                    if ($jump < $paginator->pageCount / 10) {
+                        $arr[] = max(round(($paginator->firstPage + $page) / 8, 0), 1);
+                        $arr[] = round(($paginator->lastPage  + $page * 7) / 8, 0);
                     }
                 }
             }

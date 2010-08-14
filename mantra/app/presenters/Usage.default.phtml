@@ -10,13 +10,14 @@
 
 {block #content}
 
-<table cellspacing='0' class='info'>
+<table cellspacing='0' class='info r2 r3'>
+<colgroup /><colgroup span='2' align='right' />
 {foreach $usage as $key => $item}
     <tr>
     {if is_array($item)}
-        <th colspan='1'>{$key}</th><th>time</th><th>count</th></tr>
+        <th colspan='1'>{$key}</th><th colspan='1'>time</th><th colspan='1'>queries</th></tr>
         {foreach $item as $subkey => $subitem}
-            <tr><th>{$subkey}</th><td>{$subitem['time']}</td><td>{$subitem['count']}</td></tr>
+            <tr><td>{$subkey}</td><td>{$subitem['time']}</td><td>{$subitem['count']}</td></tr>
         {/foreach}
     {else}
         <th>{$key}</th><td>{$item}</td>
