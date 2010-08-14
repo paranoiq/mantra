@@ -10,7 +10,7 @@ class CollectionPresenter extends BasePresenter {
         $indexList = $this->db->database($this->database)->getInfo()->getIndexList($this->collection);
         $dbStats   = $this->db->database($this->database)->getInfo()->getCollectionStats($this->collection);
         
-        $count = $this->db->database($this->database)->count(array(), $this->collection);
+        $this->template->info = $this->db->database($this->database)->getInfo()->getCollectionInfo($this->collection);
         
         $indexes = array();
         foreach ($indexList as $index => $keys) {
@@ -20,6 +20,7 @@ class CollectionPresenter extends BasePresenter {
         }
         $this->template->indexes = $indexes;
         
+        unset($dbStats['ns']);
         unset($dbStats['indexSizes']);
         $dbStats['avgObjSize'] = round($dbStats['avgObjSize'], 0);
         $this->template->stats = $dbStats;

@@ -19,6 +19,13 @@
 <a href='{plink CreateIndex:default}'>Create index</a>
 </p>
 
+{if !empty($info['capped'])}
+<p><b>Capped collection:</b>
+    <br>- maximal size: {$info['size']|bytes}
+    {if !empty($info['max'])}<br>- maximum objects: {$info['max']}{/if}
+</p>
+{/if}
+
 <h3>Indexes</h3>
 
 {?$form->render('begin')}

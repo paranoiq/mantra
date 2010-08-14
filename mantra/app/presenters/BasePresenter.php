@@ -32,7 +32,7 @@ class BasePresenter extends Presenter {
         // connection
         $this->db = Environment::getService('Phongo\IConnection');
         $this->db->connect();
-        $this->db->setSafeMode();
+        $this->db->setSafe();
         
         // server status
         $this->template->locked = $this->db->isLocked();

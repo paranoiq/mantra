@@ -3,7 +3,7 @@
 namespace Mantra;
 
 
-class Formater {
+class Formater extends Object {
     
     /** @var string indent characters */
     public $indent = '  ';
@@ -12,9 +12,6 @@ class Formater {
     /** @var string prefix for element CSS classes */
     public $cssClassPrefix = 'val';
     
-    public function formatYaml($val) {
-        return Yaml::encode($val);
-    }
     
     /**
      * Whitespace or HTML formated JSON

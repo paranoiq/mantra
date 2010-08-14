@@ -20,7 +20,7 @@
 {?$form->render('errors')}
 <table class='data c3 r4 r5 r6 r7'>
 <colgroup span='2' /><colgroup align='center'><colgroup span='4' align='right' />
-<tr><thead><th></th><th>Collection</th><td>Capped</td><td>Objects</td><td>Data size</td><td>Max objects</td><td>Max size</td></thead></tr>
+<tr><thead><th></th><th>Collection</th><td>Capped</td><td>Objects</td><td>Data size</td><td>Max objects</td><td>Initial size</td></thead></tr>
 {foreach $collections as $collection => $info}
     <tr>
         <td>{$form['coll'][$info['id']]->control}</td>

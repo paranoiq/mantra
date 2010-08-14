@@ -22,6 +22,7 @@ class CreateCollPresenter extends BasePresenter {
                 '/^[!#\x25-\x2D\x2F-\x7E]+(\.[!#\x25-\x2D\x2F-\x7E]+)*$/');
         
         $form->addText('size', 'Initial size [MB]')
+            ->addCondition(Form::FILLED)
             ->addRule(Form::FLOAT, 'Size must be a positive number.')
             ->addRule(Form::RANGE, 'Size must be a positive number.', array(0, NULL));
         $form->addCheckbox('capped', 'Capped (fixed size)');

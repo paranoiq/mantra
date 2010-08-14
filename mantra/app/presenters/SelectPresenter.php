@@ -33,7 +33,7 @@ class SelectPresenter extends BasePresenter {
                 if (!$key) continue;
                 $order[$key] = !empty($values['order'][$i]) ? -1 : 1;
             }
-            $cursor->orderBy($order);
+            $cursor->order($order);
         }
         
         // pagination
@@ -42,8 +42,7 @@ class SelectPresenter extends BasePresenter {
             $form['limit']->value = 25;
         }
         $paginator = $this->preparePaginator($cursor->count(), $values['limit'], $values['page'], !$values['p']);
-        $cursor->setLimit($values['limit']);
-        $cursor->setOffset($paginator->offset);
+        $cursor->limit($values['limit'], $paginator->offset);
         
         // fetching
         $items = array();
@@ -80,15 +79,27 @@ class SelectPresenter extends BasePresenter {
             $steps = array($page);
         } else {
             $arr = range(max($paginator->firstPage, $page - 2), min($paginator->lastPage, $page + 2));
+            $jump = abs($session->prevPage - $page);
             
             $arr[] = $paginator->firstPage;
-            $arr[] = round(($paginator->firstPage + $page) / 2, 0);
             $arr[] = $paginator->lastPage;
-            $arr[] = round(($paginator->lastPage + $page) / 2, 0);
+            if ($jump < $paginator->pageCount / 10) {
+                $arr[] = round(($paginator->firstPage + $page) / 2, 0);
+                $arr[] = round(($paginator->lastPage  + $page) / 2, 0);
+                if ($jump < $paginator->pageCount / 20) {
+                    $arr[] = round(($paginator->firstPage + $page) / 4, 0);
+                    $arr[] = round(($paginator->lastPage  + $page) / 4, 0);
+                    if ($jump < $paginator->pageCount / 50) {
+                        $arr[] = round(($paginator->firstPage + $page) / 8, 0);
+                        $arr[] = round(($paginator->lastPage  + $page) / 8, 0);
+                    }
+                }
+            }
             
-            $jump = abs($session->prevPage - $page);
             $arr[] = max(round($page - $jump / 2, 0), 1);
             $arr[] = max(round($page - $jump / 4, 0), 1);
+            $arr[] = max(round($page - $jump / 8, 0), 1);
+            $arr[] = min(round($page + $jump / 8, 0), $paginator->lastPage);
             $arr[] = min(round($page + $jump / 4, 0), $paginator->lastPage);
             $arr[] = min(round($page + $jump / 2, 0), $paginator->lastPage);
             
@@ -98,13 +109,13 @@ class SelectPresenter extends BasePresenter {
         
         $session->prevPage = $page;
         
+        $this->template->steps = $steps;
+        $this->template->paginator = $paginator;
+        
         $query = Environment::getHttpRequest()->getUri()->getQuery();
         $query = preg_replace('/&page=[0-9]*/', '', $query);
         $query = preg_replace('/&p=[0-9]*/', '', $query); 
         $this->template->query = $query;
-         
-        $this->template->steps = $steps;
-        $this->template->paginator = $paginator;
         
         return $paginator;
     }
