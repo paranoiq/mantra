@@ -2,7 +2,12 @@
 
 namespace Mantra;
 
+use Nette\Object;
 
+
+/**
+ * Formats JSON value for user interface
+ */
 class Formater extends Object {
     
     /** @var string indent characters */

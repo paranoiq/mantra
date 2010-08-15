@@ -41,8 +41,9 @@ class SelectPresenter extends BasePresenter {
             $values['limit'] = 25;
             $form['limit']->value = 25;
         }
-        $paginator = $this->preparePaginator($cursor->count(), $values['limit'], $values['page'], !$values['p']);
-        $cursor->limit($values['limit'], $paginator->offset);
+        $cursor->limit($values['limit']);
+        $paginator = $this->preparePaginator($cursor->count(FALSE), $values['limit'], $values['page'], !$values['p']);
+        $cursor->offset($paginator->offset);
         
         // fetching
         $items = array();

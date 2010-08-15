@@ -31,6 +31,9 @@ class BasePresenter extends Presenter {
         
         // connection
         $this->db = Environment::getService('Phongo\IConnection');
+        $profiler = new Phongo\Profiler();
+        $profiler->explainQuery = FALSE;
+        $this->db->setProfiler($profiler);
         $this->db->connect();
         $this->db->setSafe();
         

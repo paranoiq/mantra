@@ -6,7 +6,7 @@ require_once '../bootstrap.php';
 
 $db = Environment::getService('Phongo\IConnection');
 $db->connect();
-$db->setSafeMode();
+$db->setSafe();
 
 set_time_limit(0);
 
