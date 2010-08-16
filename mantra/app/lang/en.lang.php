@@ -1,0 +1,3 @@
+<?php
+
+$translations = array();
