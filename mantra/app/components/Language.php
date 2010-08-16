@@ -40,7 +40,7 @@ class Language {
         }
         
         $request = Environment::getHttpRequest();
-        $language = $httpRequest->detectLanguage(self::getAvailableLanguages());
+        $language = $request->detectLanguage(self::getAvailableLanguages());
         if ($language) {
             self::setLanguage($language);
             return self::$language;
