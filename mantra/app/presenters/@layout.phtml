@@ -3,14 +3,13 @@
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
     
-    <meta name='description' content='Mantra - MongoDB administration tool'>
-    <meta name='author' content='Vlasta Neubauer (@paranoiq)'>
+    <meta name='description' content='{t}Mantra - MongoDB administration tool{/t}'>
+    <meta name='author' content='Vlasta Neubauer [@paranoiq]'>
     <meta name='robots' content='{$robots}' n:ifset='$robots'>
     
-    <title>{block #title}mantra{/block}</title>
+    <title>{block #title}Mantra{/block}</title>
     
     <link rel='stylesheet' href='{$basePath}/static/default.css' type='text/css'>
-    <link rel='stylesheet' href='{$basePath}/static/adminer.css' type='text/css'>
     <link rel='stylesheet' href='{$basePath}/static/mantra.css' type='text/css'>
     <link rel='shortcut icon' href='{$basePath}/static/favicon.ico' type='image/x-icon'>
     
@@ -19,7 +18,7 @@
 <body>
 
 <div id='content'>
-    <h2>{block #h2}mantra{/block}</h2>
+    <h2>{block #h2}Mantra{/block}</h2>
     
     {foreach $flashes as $flash}<div class='flash {$flash->type}'>{$flash->message}</div>{/foreach}
     
@@ -37,7 +36,7 @@
     </p>
     
     {if $locked}
-    <p id='warning'>Server is locked for writing! <a href='{plink Status:default}'>unlock</a></p>
+    <p id='warning'>{t}Server is locked for writing!{/t} <a href='{plink Status:default}'>{t}unlock{/t}</a></p>
     {/if}
     
     <p id='help'>

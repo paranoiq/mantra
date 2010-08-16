@@ -1,4 +1,4 @@
-/* style for Adminer and phongo by paranoiq. 1.3.2010 */
+/* author: Vlasta Neubauer [@paranoiq]. style for Adminer and Mantra. 16.8.2010 */
 
 /* defaults & fonts */
 body {
@@ -11,6 +11,7 @@ input[name$='[comment]'], input[name='Comment'] {
 input, textarea, pre, code, samp, kbd, var {
     font-family: Consolas, "Courier New", monospace;
     font-size: 10pt; } /* FF3 */
+
 
 /* links */
 a {
@@ -38,15 +39,16 @@ input[name='logout'] { /* IEx */
     %color: #007;
 }
 
+
 /* tables */
 table {
     margin: 12px 12px 12px 0;
-    border: 1px #AAA solid;
-    border-collapse: collapse; } /* phongo */
+    border: 1px #DDD solid;
+    border-collapse: collapse; } /* mantra */
 td, th {
     background-color: #FFF;
     padding: 1px 2px;
-    border: 1px #DDD solid;
+    border-left: 1px #DDD dotted;
     border-width: 1px 0px 0px 1px; }
 th {
     text-align: left !important; }
@@ -54,21 +56,21 @@ tr:first-child td, tr:first-child th {
     border-top-width: 0; }
 td:first-child, th:first-child {
     border-left-width: 0; }
-thead td, thead th, /* phongo */ table.info th[colspan] {
-    background-color: #DDD;
+thead td, thead th, /* mantra */ table.info th[colspan] {
+    background-color: #EEE;
     border: none;
-    border-bottom: 1px #BBB solid; }
+    border-bottom: 1px #DDD solid; }
 .nowrap tr:nth-child(2n) td, .nowrap tr:nth-child(2n) th, 
-.data tr:nth-child(2n) td, .data tr:nth-child(2n) th { /* phongo */
+.data tr:nth-child(2n) td, .data tr:nth-child(2n) th { /* mantra */
     background-color: #DEF; }
 .odd td, .odd th {
     background-color: #DEF; } /* IEx */
 tr:hover td, tr:hover th {
-    background-color: #BCD !important; } /* WTF? */
+    background-color: #CDE !important; } /* WTF? */
 thead tr:hover td, thead tr:hover th {
-    background-color: #DDD !important; }
+    background-color: #EEE !important; }
 
-/* phongo form tables */
+/* mantra form tables */
 fieldset table {
     margin: 0;
     border: none; }
@@ -78,13 +80,15 @@ fieldset td, fieldset th {
 fieldset tr:hover td, fieldset tr:hover th {
     background-color: transparent !important; }
 
+
 /* forms */
 fieldset {
     background-color: #DEF;
     border: none;
-    %border: 1px #AAA solid; /* IEx */
+    %padding-left: 8px;
+    %border: 1px #DDD solid; /* IEx */
     %background-repeat: repeat-x; /* IE8 */
-    %background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAIAAAC0tAIdAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAACJJREFUKFNj/P//PwPxAKiaeMBAvFKQK0ZVY4TAaJhgJgoAj5t2py3lrtoAAAAASUVORK5CYII=");}
+    %background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAIAAAC0tAIdAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAACJJREFUKFNj/P//PwPxAKiaeMBAvFKQK0ZVY4TAaJhgJgoAj5t2py3lrtoAAAAASUVORK5CYII=');}
 legend {
     color: #000;
     background-color: #FFF;
@@ -114,17 +118,31 @@ textarea[name='definition'] {
     height: 480px; }
 input[name$='[comment]'] {
     width: 24em; }
+input[type='text'], textarea {
+    border: 1px #DDD solid; }
+input[type='submit'], input[type='reset'], input[type='submit'], button, input[type='checkbox'], label, select, option {
+    cursor: pointer; }
+.minifieldset {
+    display: inline-block;
+    padding: 2px 4px;
+    background-color: #DEF;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; }
+.minifieldset * {
+    margin: 0; }
+
 
 /* other */
 .error {
     padding: 8px; }
-.message, /* phongo */ .flash {
+.message, /* mantra */ .flash {
     padding: 8px;
     color: #000;
     background: #DDD; }
-.flash { /* phongo */
+.flash { /* mantra */
     margin-bottom: 8px; }
-.jush-sql, /* phongo */ .result {
+.jush-sql, /* mantra */ .result {
     padding: 2px 4px;
     margin-right: 4px;
     outline: 1px #BBB dashed;
@@ -133,6 +151,7 @@ code {
     background: transparent; }
 td i {
     color: #AAA; }
+
 
 /* structure */
 #content {
@@ -152,7 +171,7 @@ h3 {
 #lang select {
     font-size: 8pt; }
 
-#breadcrumb, /* phongo */ #help, #warning {
+#breadcrumb, /* mantra */ #help, #warning {
     margin: 0;
     height: 21px;
     display: block;
@@ -161,14 +180,14 @@ h3 {
     padding: 2px 12px;
     line-height: 1.25em; }
 
-#help { /* phongo */
+#help { /* mantra */
     background-color: #DFD;
     position: absolute;
     top: 0;
     left: auto;
     right: 20px; }
 
-#warning { /* phongo */
+#warning { /* mantra */
     text-align: center;
     z-index: 10000;
     background-color: orange;
@@ -188,7 +207,7 @@ h3 {
     padding-left: 8px;
     font-size: 10pt;
     border-bottom: none; }
-#menu form p, /* phongo */ #menu form {
+#menu form p, /* mantra */ #menu form {
     padding-left: 0;
     text-align: center; }
 h1 {
@@ -199,7 +218,8 @@ h1 {
     font-size: 14pt;
     border-bottom: none;
     background: transparent;
-    font-style: italic; }
+    font-style: italic;
+    text-shadow: #FFF 2px 2px 0px; }
 h1 #h1 {
     color: #000;
     font-weight: bold; }
@@ -211,13 +231,12 @@ h1 #h1:visited {
 h2 {
     margin: 0;
     margin-bottom: 12px;
-    padding: 6px 32px;
+    padding: 6px 18px;
     background-color: #CDE;
-    background-repeat: no-repeat;
-    background-position: 8px 4px;
-    background-image: url('ccc.png');
-    border-bottom: none; }
-h2 span { /* phongo */
+    border-bottom: none;
+    color: #000;
+    text-shadow: #FFF 0px 0px 4px; }
+h2 span { /* mantra */
     display: block;
     float: right;
     font-size: 11pt; }
@@ -229,7 +248,8 @@ h2 span { /* phongo */
     background-color: #DEF;
     padding: 0 2px; }
 
-/* gui changes */
+
+/* GUI adjustments */
 .js .hidden {
     display: inline; }
 .js td.hidden, .js input.hidden {
@@ -247,36 +267,43 @@ select[name$="[collation]"] {
 
 .logout a:first-child, p a {
     margin-right: 8px; }
-#tables a, #breadcrumb a, p.pages a, p code + a, /* phongo */ a[href^=http] {
+#tables a, #breadcrumb a, p.pages a, p code + a, /* mantra */ a[href^=http] {
     margin-right: 0; }
 .logout a::before, p a::before {
     content: '» '; }
-#tables a::before, #breadcrumb a::before, p.pages a::before, p code + a::before, /* phongo */ a[href^=http]::before {
+#tables a::before, #breadcrumb a::before, p.pages a::before, p code + a::before, /* mantra */ a[href^=http]::before {
     content: ''; }
 
+
 /* round corners */
-fieldset, legend, h2, .error, /* phongo */.message, .flash, .note {
+fieldset, legend, h2, .error, /* mantra */.message, .flash, .note {
     -moz-border-radius: 5px;
-    -khtml-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px; }
-#breadcrumb, #lang, #menu, /* phongo */ #help, #warning {
+#breadcrumb, #lang, #menu, /* mantra */ #help, #warning {
     -moz-border-radius-bottomright: 5px;
-    -khtml-border-bottom-right-radius: 5px;
     -webkit-border-bottom-right-radius: 5px;
     border-bottom-right-radius: 5px; }
-#breadcrumb, /* phongo */ #help, #warning {
+#breadcrumb, /* mantra */ #help, #warning {
     -moz-border-radius-bottomleft: 5px;
-    -khtml-border-bottom-left-radius: 5px;
     -webkit-border-bottom-left-radius: 5px;
     border-bottom-left-radius: 5px; }
 #menu {
     -moz-border-radius-topright: 5px;
-    -khtml-border-top-right-radius: 5px;
     -webkit-border-top-right-radius: 5px;
     border-top-right-radius: 5px; }
+fieldset, h2, .error, #breadcrumb, #lang, #menu, #breadcrumb, #menu, 
+/* mantra */ #help, #warning, #help, #warning, table, .message, .flash, .note {
+    -moz-box-shadow: 1px 1px 5px #DDD;
+    -webkit-box-shadow: 1px 1px 5px #DDD;
+    box-shadow: 1px 1px 5px #DDD; }
+fieldset table {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none; }
 
-/* phongo */
+
+/* Mantra */
 .note {
     display: inline-block;
     margin-top: 1.5em;
@@ -292,7 +319,7 @@ li {
     padding: 0;
     list-style-type: circle;
     xlist-style-position: inside; }
-.paginator {
+x.paginator {
     display: inline-block; }
 
 .nette-dump {
@@ -301,6 +328,8 @@ li {
     right: 0;
     z-index: 100000; }
 
+
+/* JSON value hightlighting */
 .val-string {
     color: brown;
     font-style: italic;
@@ -313,7 +342,8 @@ li {
 .val-bool {
     font-weight: bold; }
 
-/* <col> simulation */
+
+/* <colgroup> simulation */
 .r1 tr > *:first-child,  .r2 tr > *:nth-child(2), .r3 tr > *:nth-child(3), .r4 tr > *:nth-child(4), 
 .r5 tr > *:nth-child(5), .r6 tr > *:nth-child(6), .r7 tr > *:nth-child(7), .r8 tr > *:nth-child(8),
 .r9 tr > *:nth-child(9), .r10 tr > *:nth-child(10), .r11 tr > *:nth-child(11), .r12 tr > *:nth-child(12) {
