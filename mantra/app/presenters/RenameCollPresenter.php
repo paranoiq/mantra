@@ -15,17 +15,17 @@ class RenameCollPresenter extends BasePresenter {
         $form->onSubmit[] = array($this, 'renameCollection');
         
         $form->addGroup();
-        $form->addText('collection', 'New name')
-            ->addRule(Form::FILLED, 'Collection name must be filled.')
-            ->addRule(Form::REGEXP, 'Collection name includes an invalid character. Only letters, numbers and underscore are allowed.', 
+        $form->addText('collection', t('New name'))
+            ->addRule(Form::FILLED, t('Collection name must be filled.'))
+            ->addRule(Form::REGEXP, t('Collection name includes an invalid character. Allowed are all ASCII characters except controls, space, \", $ and DEL.'), 
                 '/^[!#\x25-\x2D\x2F-\x7E]+(\.[!#\x25-\x2D\x2F-\x7E]+)*$/');
-        $form->addText('database', 'Move to database')
+        $form->addText('database', t('Move to database'))
             ->addCondition(Form::FILLED)
-                ->addRule(Form::REGEXP, 'Collection name includes an invalid character. Only letters, numbers and underscore are allowed.', 
+                ->addRule(Form::REGEXP, t("Database name includes an invalid character. Allowed characters are numbers, letters and following symbols: !#%&\'()+-,;>=<@[]^_`{}~"), 
                     "/^[-!#%&'()+,0-9;>=<@A-Z\[\]^_`a-z{}~]+$/");
         
-        $form->addSubmit('rename', 'Rename collection');
-        $form->addProtection('Protection timeout expired. Pleas, try again.');
+        $form->addSubmit('rename', t('Rename collection'));
+        $form->addProtection(t('Protection timeout expired. Pleas, try again.'));
         
         return $form;
     }
@@ -36,7 +36,7 @@ class RenameCollPresenter extends BasePresenter {
         
         $this->db->database($this->database)->renameCollection($values['collection'], $newDatabase, $this->collection);
         
-        $this->flashMessage("Collection '$this->database.$this->collection' was renamed to '" . ($newDatabase ? "$newDatabase." : '') . "$values[collection]'.");
+        $this->flashMessage(t("Collection '%' was renamed to '%'.", $this->database.$this->collection, ($newDatabase ? "$newDatabase." : '') . $values['collection']));
         
         $this->redirect('Database:default');
     }

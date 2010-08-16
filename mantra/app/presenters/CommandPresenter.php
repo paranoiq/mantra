@@ -8,10 +8,6 @@ use Nette\Json;
 
 class CommandPresenter extends BasePresenter {
     
-    public function actionDefault($database) {
-        $this->template->form = $this->getComponent('form');
-    }
-    
     public function createComponentForm() {
         $form = FormFactory::create($this, 'form');
         

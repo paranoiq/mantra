@@ -1,6 +1,6 @@
 {extends @layout.phtml}
 
-{block #title}{t}Commands{t} (Mantra){/block}
+{block #title}{t}Commands{/t} (Mantra){/block}
 
 {block #action} » {t}commands{/t}{/block}
 
@@ -16,8 +16,8 @@
     <th><abbr title='{t}on admin database only{/t}'>A</abbr></th>
     <th><abbr title='{t}allowed on slave{/t}'>S</abbr></th>
     <th><abbr title='{t}read lock{/t}'>R</abbr></th>
-    <th><abbr title='{t}read lock{/t}'>W</abbr></th>
-    <th>Help</th>
+    <th><abbr title='{t}write lock{/t}'>W</abbr></th>
+    <th>{t}Help{/t}</th>
 </tr></thead>
 {foreach $commands as $name => $item}
 <tr>
@@ -31,5 +31,5 @@
 {/foreach}
 </table>
 
-<p>{t}A = on 'admin' database only, S = allowed on slave, R = read lock, W = write lock{/t}</p>
+<p>{t}A = on \'admin\' database only, S = allowed on slave, R = read lock, W = write lock{/t}</p>
 

@@ -25,7 +25,7 @@ class CreateCollPresenter extends BasePresenter {
             ->addCondition(Form::FILLED)
             ->addRule(Form::FLOAT, t('Size must be a positive number.'))
             ->addRule(Form::RANGE, t('Size must be a positive number.'), array(0, NULL));
-        $form->addCheckbox('noIndex', t("No auto index on '_id'"));
+        $form->addCheckbox('noIndex', t("No index on field '_id'"));
         
         $form->addCheckbox('capped', t('Capped (fixed size)'));
         $form->addText('max', t('Maximum elements'))

@@ -17,6 +17,7 @@
 
 {if isset($version)}<p>MongoDB server: {!$version}; {t}PHP Mongo extension{/t}: <b>{? echo \Mongo::VERSION; }</b></p>{/if}
 
+{var form => $presenter['form']}
 {?$form->render('begin')}
 {?$form->render('errors')}
 <table cellspacing='0' class='data r3 r4 r5 r6'>

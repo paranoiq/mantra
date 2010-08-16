@@ -98,8 +98,15 @@ class BasePresenter extends Presenter {
         $lang = $form['language']->getValue();
         $this->lang = $lang;
         
-        $session = Environment::getSession('default');
-        $session->lang = $lang;
+        Language::setLanguage($lang);
+        
+        $translator = Environment::getService('Nette\ITranslator');
+        
+        $translator->setLanguage($lang);
+        $translator->loadTranslations();
+        
+        $this->removeComponent($this->getComponent('langForm'));
+        $this->template->langForm = $this->getComponent('langForm');
     }
     
     

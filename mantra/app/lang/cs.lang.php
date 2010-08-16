@@ -143,14 +143,37 @@ $translations = array(
     'Count' => 'Počet',
     "Index '%' on collection '%' was dropped." => "Index '%' na kolekci '%' byl smazán.",
     
+    // rename-coll
+    'Rename collection' => 'Přejmenovat kolekci',
+    'Rename collection:' => 'Přejmenovat kolekci:',
+    'rename collection' => 'přejmenovat kolekci',
+    'New name' => 'nové jméno',
+    'Collection name must be filled.' => 'Jméno kolekce musí být vyplněno',
+    'Move to database' => 'Přesunout do databáze',
+    "Collection '%' was renamed to '%'." => "Kolekce '%' byla přejmenována na '%'.",
+    
+    // create-index
+    'Create index' => 'Přidat index',
+    'Create index:' => 'Přidat index:',
+    'create index' => 'přidat index',
+    'Index name' => 'Jméno indexu',
+    'Index name include an invalid character. All characters except controls, space, dolar and dor are allowed.'
+        => 'Jméno indexu obsahuje nepovolený znak. Povoleny jsou všechny znaky kromě kontrolních, mezery, dolaru a tečky.',
+    'Field' => 'Pole',
+    'descending' => 'sestupně',
+    'Field name include an invalid character. All characters except controls, space, dolar and dor are allowed.'
+        => 'Jméno pole obsahuje nepovolený znak. Povoleny jsou všechny znaky kromě kontrolních, mezery, dolaru a tečky.',
+    'Unique index' => 'Unikátní index',
+    'Drop duplicates on unique index' => 'Zahodit duplikáty na unikátním indexu',
+    'Create in background' => 'Vytvořit na pozadí',
+    'You must specify at least one field.' => 'Musíte zadat alespoň jedno pole.',
+    "Index %on collection '%' was created." => "Index %na kolekci '%' byl vytvořen.",
+    
     // select
     'Select' => 'Vybrat',
     'Select items:' => 'Vypsat záznamy:',
     'Query (JSON)' => 'Dotaz (JSON)',
     'Order' => 'Seřadit',
-    'Key name include an invalid character. All characters except controls, space, dolar and dor are allowed.'
-        => 'Jméno klíče obsahuje nepovolený znak. Povoleny jsou všechny znaky kromě kontrolních, mezery, dolaru a tečky.',
-    'descending' => 'sestupně',
     'Limit' => 'Limit',
     'Limit must be a positive number.' => 'Limit musí být kladné číslo.',
     'Action' => 'Akce',
@@ -215,12 +238,6 @@ $translations = array(
     'File cannot be read from.' => 'Ze souboru nelze číst.',
     'Error when receiving file.' => 'Došlo kchybě při příjmu souboru.',
     'File was succesfully loaded and % items created.' => 'Soubor byl úspěšně načten a bylo založeno % položek.',
-    
-    // rename-coll
-    'Rename collection' => 'Přejmenovat kolekci',
-    
-    // create-index
-    'Create index' => 'Přidat index',
     
     // 
     '' => '',

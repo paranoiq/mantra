@@ -20,8 +20,6 @@ class DatabasePresenter extends BasePresenter {
         $stats = $this->db->database($database)->getInfo()->getDatabaseStats();
         $stats['avgObjSize'] = round($stats['avgObjSize'], 0);
         $this->template->databaseStats = $stats;
-        
-        $this->template->form = $this->getComponent('form');
     }
     
     

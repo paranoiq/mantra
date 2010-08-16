@@ -3,37 +3,47 @@
 namespace Mantra;
 
 use Nette\Environment;
+use DirectoryIterator;
+
 
 class Language {
     
+    private static $language;
+    private static $languages = array();
+    private static $descriptions = array(
+        'en' => 'English',
+        'cs' => 'Čeština',
+        /// etc.
+    );
+    
+    public static function setLanguage($language) {
+        self::$language = $language;
+        $session = Environment::getSession('default');
+        $session->language = $language;
+        bar($session->language);
+        Environment::getHttpResponse()->setCookie('language', $language, 1209600); // 14 days
+    }
+    
     public static function detectLanguage() {
-        static $language;
-        if ($language) return $language;
+        if (self::$language) return self::$language;
         
         $session = Environment::getSession('default');
         if (isset($session->language)) {
-            $language = $session->language;
-            return $language;
+            self::setLanguage($session->language);
+            return self::$language;
         }
         
-//        $cookies = \Nette\Environment::getHttpRequest()->getCookies();
-//         if (isset($cookies['language']) && self::isAvailable($cookies['language'])) {
-//             $language = $cookies['language'];
-//             $session['language'] = $language;
-//             return $language;
-//         }
+       $cookies = Environment::getHttpRequest()->getCookies();
+        if (isset($cookies['language']) && self::isAvailable($cookies['language'])) {
+            self::setLanguage($cookies['language']);
+            return self::$language;
+        }
         
-        if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            $languages = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-            foreach ($languages as $ln) {
-                $ln = substr($ln, 0, 2);
-                if (self::isAvailable($ln)) {
-                    $language = $ln;
-                    $session->language = $language;
-//                     \Nette\Environment::getHttpResponse()->setCookie('language', $language, 1209600); // 14 days
-                    return $language;
-                }
-            }
+        $request = Environment::getHttpRequest();
+        $language = $httpRequest->detectLanguage(self::getAvailableLanguages());
+        if ($language) {
+            self::setLanguage($language);
+            return self::$language;
         }
         
         return 'en';
@@ -41,17 +51,16 @@ class Language {
     
     
     public static function getAvailableLanguages() {
-        static $languages = array();
-        if ($languages) return $languages;
+        if (self::$languages) return self::$languages;
         
         $session = Environment::getSession('default');
         if (isset($session->languages)) {
-            $languages = $session->languages;
-            return $languages;
+            self::$languages = $session->languages;
+            return self::$languages;
         }
         
         try {
-            $dir = new \DirectoryIterator(APP_DIR . '/lang');
+            $dir = new DirectoryIterator(APP_DIR . '/lang');
         } catch (Exception $e) { 
             throw new Exception("Cannot open translations directory '" . APP_DIR . "/lang'.");
         }
@@ -60,13 +69,13 @@ class Language {
             if (!$file->isReadable()) continue;
             
             $language = substr($file->getFilename(), 0, 2);
-            $languages[$language] = self::getDescription($language);
+            self::$languages[$language] = self::getDescription($language);
         }
         
-        if (!$languages)
+        if (!self::$languages)
             throw new Exception("Translation files are missing.");
         
-        return $languages;
+        return self::$languages;
     }
     
     
@@ -76,13 +85,7 @@ class Language {
     
     
     public static function getDescription($language) {
-        static $descriptions = array(
-            'en' => 'English',
-            'cs' => 'Čeština',
-            /// etc.
-        );
-        
-        return $descriptions[$language];
+        return self::$descriptions[$language];
     }
     
 }

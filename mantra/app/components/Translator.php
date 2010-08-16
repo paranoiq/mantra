@@ -29,13 +29,13 @@ class Translator implements ITranslator {
     
     public function setTranslations($translations) {
         if (!is_array($translations) && !($translations instanceof ArrayAccess)) 
-            throw new Exception("Translations must be an array or array-like object.");
+            throw new Exception("Translations must be an array or object implementing ArrayAccess.");
         
         $this->translations = $translations;
     }
     
     
-    private function loadTranslations() {
+    public function loadTranslations() {
         if ($this->language === NULL) $this->language = Language::detectLanguage();
         
         include APP_DIR . '/lang/' . $this->language . '.lang.php';

@@ -20,9 +20,7 @@ class HomePresenter extends BasePresenter {
             $databases[$db]['fileSize'] = $stats['fileSize'];
         }
         
-        $this->template->databases = $databases; 
-        
-        $this->template->form = $this->getComponent('form');
+        $this->template->databases = $databases;
         
         list($this->template->version) = explode(',', $this->db->getInfo()->getVersionInfo());
     }

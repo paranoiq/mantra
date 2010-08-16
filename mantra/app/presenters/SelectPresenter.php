@@ -59,7 +59,6 @@ class SelectPresenter extends BasePresenter {
         }
         $this->template->items = $items;
         
-        $this->template->actionForm = $this->getComponent('actionForm');
         $this->template->form = $form;
         $form['p']->setValue(0);
     }
@@ -134,7 +133,7 @@ class SelectPresenter extends BasePresenter {
         for ($n = 0; $n < $count; $n++) {
             $keys->addText($n)
                 ->addCondition(Form::FILLED)
-                    ->addRule(Form::REGEXP, t('Key name include an invalid character. All characters except controls, space, dolar and dor are allowed.'), 
+                    ->addRule(Form::REGEXP, t('Field name include an invalid character. All characters except controls, space, dolar and dor are allowed.'), 
                         '/^(([ !"#\x25-\x2D\x2F-\x7E][\x20-\x2D\x2F-\x7E]*)|\$)(\.(([ !"#\x25-\x2D\x2F-\x7E][\x20-\x2D\x2F-\x7E]*)|\$))*$/');
             $orders->addCheckbox($n, t('descending'));
         }

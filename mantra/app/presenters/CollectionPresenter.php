@@ -27,8 +27,6 @@ class CollectionPresenter extends BasePresenter {
         
         $usage = $this->db->database($this->database)->getInfo()->getUsage($this->collection);
         $this->template->usage = $usage;
-        
-        $this->template->form = $this->getComponent('form');
     }
     
     public function createComponentForm() {

@@ -14,7 +14,6 @@ class CreateIndexPresenter extends BasePresenter {
     
     public function actionDefault() {
         $this->counter(($this->getRequest()->getMethod() == 'POST') ? 0 : NULL);
-        $this->template->form = $this->getComponent('form');
     }
     
     public function createComponentForm() {
@@ -22,9 +21,9 @@ class CreateIndexPresenter extends BasePresenter {
         
         $form->addGroup();
         
-        $form->addText('name', 'Index name')
+        $form->addText('name', t('Index name'))
             ->addCondition(Form::FILLED)
-            ->addRule(Form::REGEXP, 'Index name includes an invalid character. Allowed are all ASCII characters except controls, space, ", $ and DEL.', 
+            ->addRule(Form::REGEXP, 'Index name include an invalid character. All characters except controls, space, dolar and dor are allowed.', 
                 '/^[!#\x25-\x7E]+$/');
         
         $keys   = $form->addContainer('key');
@@ -32,23 +31,23 @@ class CreateIndexPresenter extends BasePresenter {
         
         $count = $this->counter();
         for ($n = 0; $n < $count; $n++) {
-            $keys->addText($n, 'Key')
+            $keys->addText($n, t('Field'))
                 ->addCondition(Form::FILLED)
-                    ->addRule(Form::REGEXP, 'Key name include an invalid character. Only letters, numbers and underscore are allowed.', 
+                    ->addRule(Form::REGEXP, 'Field name include an invalid character. All characters except controls, space, dolar and dor are allowed.', 
                         '/^(([ !"#\x25-\x2D\x2F-\x7E][\x20-\x2D\x2F-\x7E]*)|\$)(\.(([ !"#\x25-\x2D\x2F-\x7E][\x20-\x2D\x2F-\x7E]*)|\$))*$/');
-            $orders->addCheckbox($n, 'descending');
+            $orders->addCheckbox($n, t('descending'));
         }
         
         $form->addSubmit('more', '+')->onClick[] = array($this, 'more');
         $form->addSubmit('less', '−')->onClick[] = array($this, 'less');
         if ($count < 2) $form['less']->setDisabled();
         
-        $form->addCheckbox('unique', 'Unique index');
-        $form->addCheckbox('dropDups', 'Drop duplicates on unique');
-        $form->addCheckbox('background', 'Create in background');
+        $form->addCheckbox('unique', t('Unique index'));
+        $form->addCheckbox('dropDups', t('Drop duplicates on unique index'));
+        $form->addCheckbox('background', t('Create in background'));
         
-        $form->addSubmit('create', 'Create index')->onClick[] = array($this, 'createIndex');
-        $form->addProtection('Protection timeout expired. Pleas, try again.');
+        $form->addSubmit('create', t('Create index'))->onClick[] = array($this, 'createIndex');
+        $form->addProtection(t('Protection timeout expired. Pleas, try again.'));
         
         return $form;
     }
@@ -62,7 +61,7 @@ class CreateIndexPresenter extends BasePresenter {
             $keys[$key] = $values['order'][$n] ? -1 : 1;
         }
         if (!$keys) {
-            $button->parent->addError('You must specify at least one key.');
+            $button->parent->addError(t('You must specify at least one field.'));
             return;
         }
         
@@ -74,7 +73,7 @@ class CreateIndexPresenter extends BasePresenter {
         
         $this->db->database($this->database)->createIndex($keys, $options, $this->collection);
         
-        $this->flashMessage("Index " . ($values['name'] ? "'$values[name]' " : '') . "on collection '$this->database.$this->collection' was created.");
+        $this->flashMessage("Index % on collection '%' was created.", ($values['name'] ? "'$values[name]'" : ''), $this->database.$this->collection);
         
         $this->redirect('Collection:default');
     }

@@ -4,13 +4,14 @@
 
 {block #action} » {t}create index{/t}{/block}
 
-{block #h2}{t}Create index{/t}{/block}
+{block #h2}{t}Create index:{/t} {$presenter->collection}{/block}
 
 {block #help}{t}help:{/t} <a href='http://www.mongodb.org/display/DOCS/Indexes'>{t}Indexes{/t}</a>, 
     <a href='http://www.mongodb.org/display/DOCS/Optimization'>{t}Optimization{/t}</a>{/block}
 
 {block #content}
 
+{var form => $presenter['form']}
 {?$form->render('begin')}
 {?$form->render('errors')}
 <fieldset>

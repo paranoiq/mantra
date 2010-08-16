@@ -29,8 +29,6 @@ class StatusPresenter extends BasePresenter {
         $servers = $this->db->getServers();
         list($server, $port) = explode(':', $servers[0]);
         $this->template->firstServer = $server;
-        
-        $this->template->form = $this->getComponent('form');
     }
     
     public function createComponentForm() {

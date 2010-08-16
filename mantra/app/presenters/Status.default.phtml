@@ -24,6 +24,7 @@ MongoDB server: {!$version}<br>
 {t}configuration:{/t} <b>{$cmdLine}</b><br>
 </p>
 
+{var form => $presenter['form']}
 {?$form->render('begin')}
 {?$form->render('errors')}
 <p>{$form['shutdown']->control}</p>

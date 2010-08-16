@@ -39,6 +39,7 @@
 {?$form->render('end')}
 
 <br>
+{var actionForm => $presenter['actionForm']}
 {?$actionForm->render('begin')}
 {?$actionForm->render('errors')}
 {include @paginator.phtml}

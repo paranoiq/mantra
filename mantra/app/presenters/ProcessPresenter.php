@@ -18,8 +18,6 @@ class ProcessPresenter extends BasePresenter {
         }
         
         $this->template->processList = $processList;
-        
-        $this->template->form = $this->getComponent('form');
     }
     
     public function createComponentForm() {
