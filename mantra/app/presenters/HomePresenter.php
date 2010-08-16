@@ -37,13 +37,13 @@ class HomePresenter extends BasePresenter {
             $container->addCheckbox(Tools::escapeId($db));
         }
         
-        $form->addSubmit('drop', "Drop database")->onClick[] = array($this, 'dropDatabase');
+        $form->addSubmit('drop', t('Drop database'))->onClick[] = array($this, 'dropDatabase');
         
-        $form->addSubmit('repair', "Repair database")->onClick[] = array($this, 'repairDatabase');
-        $form->addCheckbox('backup', 'Backup original files');
-        $form->addCheckbox('preserve', 'Preserve damaged cloned files');
+        $form->addSubmit('repair', t('Repair database'))->onClick[] = array($this, 'repairDatabase');
+        $form->addCheckbox('backup', t('Backup original files'));
+        //$form->addCheckbox('preserve', t('Preserve cloned files'));
         
-        $form->addProtection('Protection timeout expired. Pleas, try again.');
+        $form->addProtection(t('Protection timeout expired. Pleas, try again.'));
         
         return $form;
     }
@@ -58,7 +58,7 @@ class HomePresenter extends BasePresenter {
             $database = Tools::unescapeId($name);
             $this->db->database($database)->drop();
             
-            $this->flashMessage("Database '$database' was dropped.");
+            $this->flashMessage(t("Database '%' was dropped.", $database));
         }
         
         $this->redirect('Home:default');
@@ -74,7 +74,7 @@ class HomePresenter extends BasePresenter {
             $database = Tools::unescapeId($name);
             $this->db->database($database)->repair($values['preserve'], $values['backup']);
             
-            $this->flashMessage("Database '$database' was repaired.");
+            $this->flashMessage(t("Database '%' was repaired.", $database));
         }
         
         $this->redirect('Home:default');

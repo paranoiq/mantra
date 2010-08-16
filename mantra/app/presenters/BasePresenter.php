@@ -71,7 +71,7 @@ class BasePresenter extends Presenter {
         $form = FormFactory::create($this, 'langForm', NULL, FormFactory::NAKED);
         $form->onSubmit[] = array($this, 'selectLanguage');
         
-        $select = $form->addSelect('language', 'Language:', Language::getAvailableLanguages());
+        $select = $form->addSelect('language', t('Language:'), Language::getAvailableLanguages());
         $select->getControlPrototype()->attrs['onchange'] = 'this.form.submit();';
         
         return $form;
@@ -87,7 +87,7 @@ class BasePresenter extends Presenter {
             $dbs[$db] = $db;
         }
         
-        $select = $form->addSelect('database', NULL, array_merge(array('(select database)'), $dbs))->skipFirst();
+        $select = $form->addSelect('database', NULL, array_merge(array(t('(select database)')), $dbs))->skipFirst();
         $select->getControlPrototype()->attrs['onchange'] = 'this.form.submit();';
         
         return $form;

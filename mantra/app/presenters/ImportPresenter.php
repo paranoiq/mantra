@@ -9,21 +9,21 @@ class ImportPresenter extends BasePresenter {
     public function createComponentForm() {
         $form = FormFactory::create($this, 'form');
         
-        $maxSize = ((int) ini_get('upload_max_filesize') - 1) << 20;
+        $maxSize = (int) ini_get('upload_max_filesize') - 1;
         
-        $form->addGroup('Import file');
+        $form->addGroup(t('Import file'));
         
-        $form->addText('local', 'Select local file …', 60)
+        $form->addText('local', t('Select file on server …'), 60)
             ->setEmptyValue('/');
             //->addRule(Form::FILLED, 'Pleas fill in the path to file.');
-        $form->addFile('upload', '… or upload file')
+        $form->addFile('upload', t('… or upload file'))
             ->addConditionOn($form['local'], ~Form::FILLED)
-                ->addRule(Form::FILLED, 'Select the file to import')
-                ->addRule(Form::MAX_FILE_SIZE, "File cannot be larger than $maxSize", $maxSize)
-                ->addRule(Form::MIME_TYPE, 'File must be either JSON or  CSV.', 'application/json,text/csv,application/octet-stream');
-        $form->addSelect('type', 'Type', array('csv,' => 'CSV ,', 'csv;' => 'CSV ;'/*, 'json' => 'JSON'*/));
+                ->addRule(Form::FILLED, t('Select the file to import'))
+                ->addRule(Form::MAX_FILE_SIZE, t('File cannot be larger than % MB.', $maxSize), $maxSize << 20)
+                ->addRule(Form::MIME_TYPE, t('File must be either JSON or CSV.'), 'application/json,text/csv,application/octet-stream');
+        $form->addSelect('type', t('Type'), array('csv,' => 'CSV ,', 'csv;' => 'CSV ;'/*, 'json' => 'JSON'*/));
         
-        $form->addSubmit('import', 'Import')->onClick[] = array($this, 'uploadFile');
+        $form->addSubmit('import', t('Import'))->onClick[] = array($this, 'uploadFile');
     }
     
     public function uploadFile(ISubmitterControl $button) {
@@ -31,12 +31,12 @@ class ImportPresenter extends BasePresenter {
         
         if (!empty($values['local'])) {
             if (!file_exists($values['local'])) {
-                $button->parent->addError('File not found.');
+                $button->parent->addError(t('File was not found.'));
                 return;
             }
             
             if (!is_readable($values['local'])) {
-                $button->parent->addError('File cannot be read from.');
+                $button->parent->addError(t('File cannot be read from.'));
                 return;
             }
             
@@ -47,7 +47,7 @@ class ImportPresenter extends BasePresenter {
             }
         } else {
             if ($values['upload']->getError() != 0) {
-                $this->flashMessage('Error receiving file.');
+                $this->flashMessage(t('Error when receiving file.'));
                 return;
             }
             
@@ -58,7 +58,7 @@ class ImportPresenter extends BasePresenter {
             }
         }
         
-        $this->flashMessage("File was succesfully loaded ($count items).");
+        $this->flashMessage(t('File was succesfully loaded and % items created.', $count));
         
         $this->redirect('Select:default');
     }

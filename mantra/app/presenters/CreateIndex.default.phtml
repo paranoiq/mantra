@@ -1,13 +1,13 @@
 {extends @layout.phtml}
 
-{block #title}{$presenter->database}.{$presenter->collection} » create index (mantra){/block}
+{block #title}{$presenter->database}.{$presenter->collection} » {t}create index{/t} (Mantra){/block}
 
-{block #action} » create index{/block}
+{block #action} » {t}create index{/t}{/block}
 
-{block #h2}Create index{/block}
+{block #h2}{t}Create index{/t}{/block}
 
-{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Indexes'>Indexes</a>, 
-    <a href='http://www.mongodb.org/display/DOCS/Optimization'>Optimization</a>{/block}
+{block #help}{t}help:{/t} <a href='http://www.mongodb.org/display/DOCS/Indexes'>{t}Indexes{/t}</a>, 
+    <a href='http://www.mongodb.org/display/DOCS/Optimization'>{t}Optimization{/t}</a>{/block}
 
 {block #content}
 
@@ -15,7 +15,7 @@
 {?$form->render('errors')}
 <fieldset>
 <table>
-    <tr><td>{$form['name']->label}</td><td>{$form['name']->control}</td><td></td></tr>
+    <tr><td>{$form['name']->label}</td><td>{$form['name']->control}</td></tr>
 {for $n = 0; $n < $count; $n++}
     <tr>
         <td>{$form['key'][$n]->label}</td>

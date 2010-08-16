@@ -41,9 +41,9 @@ class CollectionPresenter extends BasePresenter {
             $container->addCheckbox(Tools::escapeId($index));
         }
         
-        $form->addSubmit('drop', 'Drop index')->onClick[] = array($this, 'dropIndex');
+        $form->addSubmit('drop', t('Drop index'))->onClick[] = array($this, 'dropIndex');
         
-        $form->addProtection('Protection timeout expired. Pleas, try again.');
+        $form->addProtection(t('Protection timeout expired. Pleas, try again.'));
         
         return $form;
     }
@@ -57,7 +57,7 @@ class CollectionPresenter extends BasePresenter {
             $index = Tools::unescapeId($name);
             $this->db->database($this->database)->dropIndex($index, $this->collection);
             
-            $this->flashMessage("Index '$index' on collection '$this->database.$this->collection' was dropped.");
+            $this->flashMessage(t("Index '%' on collection '%' was dropped.", $index, $this->database . '.' . $this->collection));
         }
         
         $this->redirect('Collection:default');

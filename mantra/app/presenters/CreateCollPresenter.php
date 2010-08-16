@@ -15,27 +15,27 @@ class CreateCollPresenter extends BasePresenter {
         $form->onSubmit[] = array($this, 'createCollection');
         
         $form->addGroup();
-        $form->addText('collection', 'Name')
-            ->addRule(Form::FILLED, 'Collection name must be filled.')
-            ->addRule(Form::MAX_LENGTH, 'Collection name is too long.', 127 - strlen($this->database))
-            ->addRule(Form::REGEXP, 'Collection name includes an invalid character. Allowed are all ASCII characters except controls, space, ", $ and DEL.', 
+        $form->addText('collection', t('Name'))
+            ->addRule(Form::FILLED, t('Collection name must be filled.'))
+            ->addRule(Form::MAX_LENGTH, t('Collection name is too long.'), 127 - strlen($this->database))
+            ->addRule(Form::REGEXP, t('Collection name includes an invalid character. Allowed are all ASCII characters except controls, space, ", $ and DEL.'), 
                 '/^[!#\x25-\x2D\x2F-\x7E]+(\.[!#\x25-\x2D\x2F-\x7E]+)*$/');
         
-        $form->addText('size', 'Initial size [MB]')
+        $form->addText('size', t('Initial size [MB]'))
             ->addCondition(Form::FILLED)
-            ->addRule(Form::FLOAT, 'Size must be a positive number.')
-            ->addRule(Form::RANGE, 'Size must be a positive number.', array(0, NULL));
-        $form->addCheckbox('noIndex', 'No auto index on `_id`');
+            ->addRule(Form::FLOAT, t('Size must be a positive number.'))
+            ->addRule(Form::RANGE, t('Size must be a positive number.'), array(0, NULL));
+        $form->addCheckbox('noIndex', t("No auto index on '_id'"));
         
-        $form->addCheckbox('capped', 'Capped (fixed size)');
-        $form->addText('max', 'Maximum elements')
+        $form->addCheckbox('capped', t('Capped (fixed size)'));
+        $form->addText('max', t('Maximum elements'))
             ->addCondition(Form::FILLED)
             ->addConditionOn($form['capped'], Form::FILLED)
-                ->addRule(Form::FLOAT, 'Maximum elements must be a positive number.')
-                ->addRule(Form::RANGE, 'Maximum elements must be a positive number.', array(0, NULL));
+                ->addRule(Form::FLOAT, t('Maximum elements must be a positive number.'))
+                ->addRule(Form::RANGE, t('Maximum elements must be a positive number.'), array(0, NULL));
         
-        $form->addSubmit('create', 'Create collection');
-        $form->addProtection('Protection timeout expired. Pleas, try again.');
+        $form->addSubmit('create', t('Create collection'));
+        $form->addProtection(t('Protection timeout expired. Pleas, try again.'));
         
         return $form;
     }
@@ -51,7 +51,7 @@ class CreateCollPresenter extends BasePresenter {
         
         $this->db->database($this->database)->createCollection($values['collection'], $options);
         
-        $this->flashMessage("Collection '$values[collection]' was created.");
+        $this->flashMessage(t("Collection '%' was created.", $values['collection']));
         
         $this->redirect('Database:default');
     }

@@ -124,7 +124,7 @@ class SelectPresenter extends BasePresenter {
     public function createComponentForm() {
         $form = FormFactory::create($this, 'form', Form::GET);
         
-        $form->addTextArea('query', 'Query (JSON)', 60, 6)
+        $form->addTextArea('query', t('Query (JSON)'), 60, 6)
             ->setEmptyValue('{"": ""}');
         
         $keys = $form->addContainer('key');
@@ -134,9 +134,9 @@ class SelectPresenter extends BasePresenter {
         for ($n = 0; $n < $count; $n++) {
             $keys->addText($n)
                 ->addCondition(Form::FILLED)
-                    ->addRule(Form::REGEXP, 'Key name include an invalid character. Only letters, numbers and underscore are allowed.', 
+                    ->addRule(Form::REGEXP, t('Key name include an invalid character. All characters except controls, space, dolar and dor are allowed.'), 
                         '/^(([ !"#\x25-\x2D\x2F-\x7E][\x20-\x2D\x2F-\x7E]*)|\$)(\.(([ !"#\x25-\x2D\x2F-\x7E][\x20-\x2D\x2F-\x7E]*)|\$))*$/');
-            $orders->addCheckbox($n, 'descending');
+            $orders->addCheckbox($n, t('descending'));
         }
         
         $form->addSubmit('more', '+')->onClick[] = array($this, 'more');
@@ -145,13 +145,13 @@ class SelectPresenter extends BasePresenter {
         
         $form->addText('limit')
             ->addCondition(Form::FILLED)
-                ->addRule(Form::INTEGER, 'Limit must be a positive number.')
-                ->addRule(Form::RANGE, 'Limit must be a positive number.', array(1, PHP_INT_MAX));
+                ->addRule(Form::INTEGER, t('Limit must be a positive number.'))
+                ->addRule(Form::RANGE, t('Limit must be a positive number.'), array(1, PHP_INT_MAX));
         
         $form->addHidden('p', 0);
         $form->addHidden('page', 1);
         
-        $form->addSubmit('select', 'Select');
+        $form->addSubmit('select', t('Select'));
         
         return $form;
     }
@@ -164,19 +164,19 @@ class SelectPresenter extends BasePresenter {
             $items->addCheckbox($id);
         }
         
-        $form->addCheckbox('all', 'all matching items');
+        $form->addCheckbox('all', t('all matching items'));
         
-        $form->addSubmit('update', 'Update')->onClick[] = array($this, 'updateItems');
-        $form->addSubmit('clone', 'Clone')->onClick[] = array($this, 'cloneItems');
-        $form->addSubmit('delete', 'Delete')->onClick[] = array($this, 'deleteItems');
+        $form->addSubmit('update', t('Update'))->onClick[] = array($this, 'updateItems');
+        $form->addSubmit('clone', t('Clone'))->onClick[] = array($this, 'cloneItems');
+        $form->addSubmit('delete', t('Delete'))->onClick[] = array($this, 'deleteItems');
         
         $form->addSelect('exportAction', NULL, 
-            array('save' => 'save' , 'open' => 'open', 'zip' => 'zip'));
+            array('save' => t('save') , 'open' => t('open'), 'zip' => t('zip')));
         $form->addSelect('exportFormat', NULL, 
-            array('json' => 'JSON', 'yaml' => 'YAML', 'inline' => 'inline YAML'));
-        $form->addSubmit('export', 'Export')->onClick[] = array($this, 'exportItems');
+            array('json' => 'JSON'/*, 'yaml' => 'YAML', 'inline' => 'inline YAML'*/));
+        $form->addSubmit('export', t('Export'))->onClick[] = array($this, 'exportItems');
         
-        $form->addProtection('Protection timeout expired. Pleas, try again.');
+        $form->addProtection(t('Protection timeout expired. Pleas, try again.'));
         
         return $form;
     }
@@ -194,7 +194,7 @@ class SelectPresenter extends BasePresenter {
             $deleted++;
         }
         
-        if ($deleted) $this->flashMessage("$deleted items deleted from '$this->database.$this->collection'.");
+        if ($deleted) $this->flashMessage(t("% items deleted from collection '%'.", $deleted, "$this->database.$this->collection"));
         
         $this->removeComponent($this->getComponent('actionForm'));
         $this->actionDefault();

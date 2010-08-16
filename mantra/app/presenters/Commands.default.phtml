@@ -1,22 +1,22 @@
 {extends @layout.phtml}
 
-{block #title}Commands (mantra){/block}
+{block #title}{t}Commands{t} (Mantra){/block}
 
-{block #action} » commands{/block}
+{block #action} » {t}commands{/t}{/block}
 
-{block #h2}Commands{/block}
+{block #h2}{t}Commands{/t}{/block}
 
-{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Commands'>Commands</a>{/block}
+{block #help}{t}help:{/t} <a href='http://www.mongodb.org/display/DOCS/Commands'>{t}Commands{/t}</a>{/block}
 
 {block #content}
 
-<table class='data'>
+<table cellspacing='0' class='data'>
 <thead><tr>
-    <th colspan='1'>Name</th>
-    <th><abbr title='admin only'>A</abbr></th>
-    <th><abbr title='slave ok'>S</abbr></th>
-    <th><abbr title='read lock'>R</abbr></th>
-    <th><abbr title='read lock'>W</abbr></th>
+    <th colspan='1'>{t}Name{/t}</th>
+    <th><abbr title='{t}on admin database only{/t}'>A</abbr></th>
+    <th><abbr title='{t}allowed on slave{/t}'>S</abbr></th>
+    <th><abbr title='{t}read lock{/t}'>R</abbr></th>
+    <th><abbr title='{t}read lock{/t}'>W</abbr></th>
     <th>Help</th>
 </tr></thead>
 {foreach $commands as $name => $item}
@@ -31,5 +31,5 @@
 {/foreach}
 </table>
 
-<p>A = admin only, S = slave ok, R = read lock, W = write lock</p>
+<p>{t}A = on 'admin' database only, S = allowed on slave, R = read lock, W = write lock{/t}</p>
 

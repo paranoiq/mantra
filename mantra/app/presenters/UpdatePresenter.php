@@ -14,28 +14,28 @@ class UpdatePresenter extends BasePresenter {
         $form = FormFactory::create($this, 'form');
         
         $form->addGroup();
-        $form->addTextArea('query', 'Query (JSON)', 80, 10)
+        $form->addTextArea('query', t('Query (JSON)'), 80, 10)
             ->setEmptyValue('{"": ""}')
-            ->addRule(Form::FILLED, 'Query must be specified.');
+            ->addRule(Form::FILLED, t('Query must be specified.'));
         
-        $form->addTextArea('modifier', 'Modifier (JSON)', 80, 10)
+        $form->addTextArea('modifier', t('Changes (JSON)'), 80, 10)
             ->setEmptyValue('{"": ""}');
         
-        $form->addCheckbox('delete', 'Delete matching items');
-        $form->addCheckbox('upsert', 'Insert if no match found');
-        $form->addCheckbox('single', 'Update/delete just one item');
+        $form->addCheckbox('delete', t('Delete matching items'));
+        $form->addCheckbox('upsert', t('Insert if no match found'));
+        $form->addCheckbox('single', t('Update/delete just one item'));
         
         $form['modifier']->addConditionOn($form['delete'], Form::EQUAL, FALSE)
-                ->addRule(Form::FILLED, 'When updating, you must specify the modifier.');
+                ->addRule(Form::FILLED, t('When updating, you must specify the changes.'));
         
         //$form['delete']->addCondition(Form::EQUAL, TRUE)->toggle($form['modifier']->getHtmlId());
         //$form['delete']->addCondition(Form::EQUAL, TRUE)->toggle($form['modifier']->getLabelPrototype()->getHtmlId());
         //$form['delete']->addCondition(Form::EQUAL, TRUE)->toggle($form['upsert']->getHtmlId());
         //$form['delete']->addCondition(Form::EQUAL, TRUE)->toggle($form['upsert']->getLabelPrototype()->getHtmlId());
         
-        $form->addSubmit('update', 'Update')->onClick[] = array($this, 'updateItems');
+        $form->addSubmit('update', t('Update'))->onClick[] = array($this, 'updateItems');
         
-        $form->addProtection('Protection timeout expired. Pleas, try again.');
+        $form->addProtection(t('Protection timeout expired. Pleas, try again.'));
         
         $params = $this->getRequest()->getParams();
         if (isset($params['items'])) {

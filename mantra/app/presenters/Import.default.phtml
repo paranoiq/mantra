@@ -1,18 +1,18 @@
 {extends @layout.phtml}
 
-{block #title}{$presenter->database}.{$presenter->collection} import (mantra){/block}
+{block #title}{$presenter->database}.{$presenter->collection} {t}import{/t} (Mantra){/block}
 
-{block #h2}Import file: {$presenter->collection}{/block}
+{block #h2}{t}Import file:{/t} {$presenter->collection}{/block}
 
-{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Mongo+Extended+JSON'>Extended JSON</a>{/block}
+{block #help}{t}help:{/t} <a href='http://www.mongodb.org/display/DOCS/Mongo+Extended+JSON'>{t}Extended JSON{/t}</a>{/block}
 {block #content}
 
 <p>
-<a href='{plink Collection:default}'>Collection</a>
-<a href='{plink Select:default}'>Select</a>
-<a href='{plink Update:default}'>Update</a>
-<a href='{plink Insert:default}'>Insert</a>
-<a href='{plink Import:default}'>Import</a>
+<a href='{plink Collection:default}'>{t}Collection{/t}</a>
+<a href='{plink Select:default}'>{t}Select{/t}</a>
+<a href='{plink Update:default}'>{t}Update{/t}</a>
+<a href='{plink Insert:default}'>{t}Insert{/t}</a>
+<a href='{plink Import:default}'>{t}Import{/t}</a>
 </p>
 
 {control form}

@@ -1,38 +1,40 @@
 {extends @layout.phtml}
 
-{block #title}{$presenter->database}.{$presenter->collection} select (mantra){/block}
+{block #title}{$presenter->database}.{$presenter->collection} {t}select{/t} (Mantra){/block}
 
-{block #h2}Select items: {$presenter->collection}{/block}
+{block #h2}{t}Select items:{/t} {$presenter->collection}{/block}
 
-{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Querying'>Querying</a>,
-    <a href='http://www.mongodb.org/display/DOCS/Mongo+Extended+JSON'>Extended JSON</a>{/block}
+{block #help}{t}help:{/t} <a href='http://www.mongodb.org/display/DOCS/Querying'>{t}Querying{/t}</a>,
+    <a href='http://www.mongodb.org/display/DOCS/Mongo+Extended+JSON'>{t}Extended JSON{/t}</a>{/block}
 {block #content}
 
 <p>
-<a href='{plink Collection:default}'>Collection</a>
-<a href='{plink Select:default}'>Select</a>
-<a href='{plink Update:default}'>Update</a>
-<a href='{plink Insert:default}'>Insert</a>
-<a href='{plink Import:default}'>Import</a>
+<a href='{plink Collection:default}'>{t}Collection{/t}</a>
+<a href='{plink Select:default}'>{t}Select{/t}</a>
+<a href='{plink Update:default}'>{t}Update{/t}</a>
+<a href='{plink Insert:default}'>{t}Insert{/t}</a>
+<a href='{plink Import:default}'>{t}Import{/t}</a>
 </p>
 
 {?$form->render('begin')}
 {?$form->render('errors')}
 
-<fieldset><legend>Query (JSON)</legend>
-    {$form['query']->control}
+<fieldset><legend>{t}Query (JSON){/t}</legend>
+    <div>{$form['query']->control}</div>
 </fieldset>
-<fieldset><legend>Order</legend>
-{foreach $form['key']->getComponents() as $n => $key}
-    {$key->control} {$form['order'][$n]->control} {$form['order'][$n]->label}<br>
-{/foreach}
+<fieldset><legend>{t}Order{/t}</legend>
+    <div>
+    {foreach $form['key']->getComponents() as $n => $key}
+        {$key->control} {$form['order'][$n]->control} {$form['order'][$n]->label}<br>
+    {/foreach}
     {$form['more']->control} {$form['less']->control}
+    </div>
 </fieldset>
-<fieldset><legend>Limit</legend>
-    {$form['limit']->control}
+<fieldset><legend>{t}Limit{/t}</legend>
+    <div>{$form['limit']->control}</div>
 </fieldset>
-<fieldset><legend>Action</legend>
-    {$form['select']->control}
+<fieldset><legend>{t}Action{/t}</legend>
+    <div>{$form['select']->control}</div>
 </fieldset>
 {?$form->render('end')}
 
@@ -41,12 +43,13 @@
 {?$actionForm->render('errors')}
 {include @paginator.phtml}
 <br>
-<table class='data'>
-<thead><td><input type='checkbox' onclick='$(":checkbox").attr("checked", true)'/></td><td>Edit</td><td>Id</td><td>Data &nbsp; <label><input type='checkbox' id='pre' checked /> flatten</label></td></thead>
+<table cellspacing='0' class='data'>
+<thead><td><input type='checkbox' onclick='$(":checkbox").attr("checked", true)'/></td><td>{t}Edit{/t}</td>
+    <td>{t}Id{/t}</td><td>{t}Data{/t} &nbsp; <label><input type='checkbox' id='pre' checked /> {t}compact view{/t}</label></td></thead>
 {foreach $items as $id => $item}
 <tr>
     <td>{$actionForm['item'][$id]->control}</td>
-    <td><a href='{plink Edit:default, database=>$presenter->database, collection=>$presenter->collection, id=>$id}'>edit</a></td>
+    <td><a href='{plink Edit:default, database=>$presenter->database, collection=>$presenter->collection, id=>$id}'>{t}edit{/t}</a></td>
     <td><a href='{plink Show:default, id=>$id}'>{$id}</a></td>
     <td class='itemdata'>{!$item}</td>
 </tr>
@@ -54,22 +57,22 @@
 </table>
 
 {include @paginator.phtml}
-({$paginator->getItemCount()} items) {$actionForm['all']->control} {$actionForm['all']->label}<br>
+&nbsp; ({$paginator->getItemCount()} items) {$actionForm['all']->control} {$actionForm['all']->label}<br>
 
-<fieldset>
+<p>
     {$actionForm['update']->control}
     {$actionForm['clone']->control}
     {$actionForm['delete']->control}
-</fieldset>
-<fieldset>
+    <span class='minifieldset'>
     {$actionForm['exportAction']->control}
     {$actionForm['exportFormat']->control}
     {$actionForm['export']->control}
-</fieldset>
+    </span>
+</p>
 {?$actionForm->render('end')}
 
 <div class='note'>
-<h4>Query operators:</h4>
+<h4>{t}Query operators:{/t}</h4>
 <ul>
 <li><code>$gt</code> - greater than &gt;
 <li><code>$lt</code> - less than &lt;
@@ -95,7 +98,7 @@
 <li><code>$where</code> - javascript expression <code>{ $where: "this.a > 3" }</code>
 </ul>
 
-<h4>Field operator:</h4>
+<h4>{t}Field operator:{/t}</h4>
 <ul>
 <li><code>$slice</code> - return subset of an array <code>{ comments: { $slice: [20, 10] } }</code>
 </ul>
@@ -107,7 +110,7 @@
             if(this.checked) {
                 $('.itemdata')
                     .css('white-space', 'normal')
-                    .css('font-size',   '11pt')
+                    .css('font-size',   'inherit')
                     .css('font-family', 'inherit');
             } else {
                 $('.itemdata')

@@ -1,31 +1,31 @@
 {extends @layout.phtml}
 
-{block #title}{$presenter->database} (mantra){/block}
+{block #title}{$presenter->database} (Mantra){/block}
 
-{block #h2}Database: {$presenter->database}{/block}
+{block #h2}{t}Database:{/t} {$presenter->database}{/block}
 
-{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Databases'>Databases</a>,
-    <a href='http://www.mongodb.org/display/DOCS/Collections'>Collections</a>{/block}
+{block #help}{t}help:{/t} <a href='http://www.mongodb.org/display/DOCS/Databases'>{t}Databases{/t}</a>,
+    <a href='http://www.mongodb.org/display/DOCS/Collections'>{t}Collections{/t}</a>{/block}
 
 {block #content}
 
 <p>
-<a href='{plink CreateColl:default}'>Create collection</a>
-<a href='{plink Command:default}'>Run command</a>
+<a href='{plink Command:default}'>{t}Run command{/t}</a>
+<a href='{plink CreateColl:default}'>{t}Create collection{/t}</a>
 </p>
 
-<h3>Collections</h3>
+<h3>{t}Collections{/t}</h3>
 
 {?$form->render('begin')}
 {?$form->render('errors')}
-<table class='data c3 r4 r5 r6 r7'>
+<table cellspacing='0' class='data c3 r4 r5 r6 r7'>
 <colgroup span='2' /><colgroup align='center'><colgroup span='4' align='right' />
-<tr><thead><th></th><th>Collection</th><td>Capped</td><td>Objects</td><td>Data size</td><td>Max objects</td><td>Initial size</td></thead></tr>
+<tr><thead><th></th><th>{t}Collection{/t}</th><td>{t}Capped{/t}</td><td>{t}Objects{/t}</td><td>{t}Data size{/t}</td><td>{t}Max. objects{/t}</td><td>{t}Initial size{/t}</td></thead></tr>
 {foreach $collections as $collection => $info}
     <tr>
         <td>{$form['coll'][$info['id']]->control}</td>
         <td><b><a href='{plink Collection:default, database=>$presenter->database, collection=>$collection}'>{$collection}</a></b></td>
-        <td>{? echo isset($info['capped']) ? 'yes' : ''}</td>
+        <td>{? echo isset($info['capped']) ? t('yes') : ''}</td>
         <td>{$info['objects']}</td>
         <td>{$info['dataSize']|bytes:1}</td>
         <td>{? echo isset($info['max']) ? $info['max'] : ''}</td>
@@ -33,35 +33,30 @@
     </tr>
 {/foreach}
 </table>
-<fieldset>
+<p>
     {$form['empty']->control}
     {$form['drop']->control}
-</fieldset>
-<fieldset>
+
     {$form['dropIndexes']->control}
     {$form['reindex']->control}
-</fieldset>
-<fieldset>
+
     {$form['validate']->control}
     {$form['validateData']->control}
-</fieldset>
+</p>
 {?$form->render('end')}
 
 
-<h3>Database statistics</h3>
+<h3>{t}Database statistics{/t}</h3>
 
 <table cellspacing='0' class='info r2'>
 <col /><col align='right'>
 {foreach $databaseStats as $key => $item}
-    <tr>
-    {if is_array($item)}
-        <th colspan='2'>{$key}</th></tr>
-        {foreach $item as $subkey => $subitem}
-            <tr><th>{$subkey}</th><td>{$subitem}</td></tr>
-        {/foreach}
+    <tr><th>{$key}</th><td>
+    {if in_array($key, array('avgObjSize', 'dataSize', 'storageSize', 'indexSize', 'fileSize'))}
+        {$item|bytes}
     {else}
-        <th>{$key}</th><td>{$item}</td>
+        {$item}
     {/if}
-    </tr>
+    </td></tr>
 {/foreach}
 </table>

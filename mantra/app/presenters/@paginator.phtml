@@ -1,13 +1,13 @@
 {if $paginator->pageCount > 1}
-<div class="paginator">
-	Page: 
+<span class='paginator'>
+	{t}Page:{/t} 
     {foreach $steps as $step}
 	{if $step == $paginator->page}
-		<span class="current">{$step}</span>
+		<span class='current'>{$step}</span>
 	{else}
-		<a href="{plink this}?{$query}&amp;p=1&amp;page={$step}">{$step}</a>
+		<a href='{plink this}?{$query}&amp;p=1&amp;page={$step}'>{$step}</a>
 	{/if}
 	{if $iterator->nextValue > $step + 1}<span>…</span>{/if}
 	{/foreach}
-</div>
+</span>
 {/if}

@@ -14,13 +14,13 @@ class InsertPresenter extends BasePresenter {
         $form = FormFactory::create($this, 'form');
         
         $form->addGroup();
-        $form->addTextArea('object', 'Object (JSON)', 80, 20)
+        $form->addTextArea('object', t('Object (JSON)'), 80, 20)
             ->setEmptyValue('{"": ""}')
-            ->addRule(Form::FILLED, 'Object must be filled.');
+            ->addRule(Form::FILLED, t('Object must be filled.'));
         
-        $form->addSubmit('insert', 'Insert')->onClick[] = array($this, 'insertItem');
+        $form->addSubmit('insert', t('Insert'))->onClick[] = array($this, 'insertItem');
         
-        $form->addProtection('Protection timeout expired. Pleas, try again.');
+        $form->addProtection(t('Protection timeout expired. Pleas, try again.'));
         
         return $form;
     }
@@ -30,7 +30,7 @@ class InsertPresenter extends BasePresenter {
         
         $this->db->database($this->database)->insert($values['object'], $this->collection);
            
-        $this->flashMessage("A new item was inserted into '$this->database.$this->collection'.");
+        $this->flashMessage(t("A new item was inserted into collection '%'.", "$this->database.$this->collection"));
         
         $this->redirect('Insert:default');
     }

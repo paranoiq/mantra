@@ -35,14 +35,14 @@ class DatabasePresenter extends BasePresenter {
             $container->addCheckbox(Tools::escapeId($coll));
         }
         
-        $form->addSubmit('empty', "Empty collection")->onClick[] = array($this, 'emptyCollection');
-        $form->addSubmit('drop', "Drop collection")->onClick[] = array($this, 'dropCollection');
-        $form->addSubmit('dropIndexes', "Drop indexes")->onClick[] = array($this, 'dropIndexes');
-        $form->addSubmit('reindex', "Reindex")->onClick[] = array($this, 'reindexCollection');
-        $form->addSubmit('validate', "Validate indexes")->onClick[] = array($this, 'validateCollection');
-        $form->addSubmit('validateData', "Validate data")->onClick[] = array($this, 'validateData');
+        $form->addSubmit('empty', t('Empty collection'))->onClick[] = array($this, 'emptyCollection');
+        $form->addSubmit('drop', t('Drop collection'))->onClick[] = array($this, 'dropCollection');
+        $form->addSubmit('dropIndexes', t('Drop indexes'))->onClick[] = array($this, 'dropIndexes');
+        $form->addSubmit('reindex', t('Reindex'))->onClick[] = array($this, 'reindexCollection');
+        $form->addSubmit('validate', t('Validate indexes'))->onClick[] = array($this, 'validateCollection');
+        $form->addSubmit('validateData', t('Validate data'))->onClick[] = array($this, 'validateData');
         
-        $form->addProtection('Protection timeout expired. Pleas, try again.');
+        $form->addProtection(t('Protection timeout expired. Pleas, try again.'));
         
         return $form;
     }
@@ -62,7 +62,7 @@ class DatabasePresenter extends BasePresenter {
             $collection = Tools::unescapeId($name);
             $this->db->database($this->database)->validateCollection($collection, $validateData);
             
-            $this->flashMessage("Collection '$this->database.$collection' was validated.");
+            $this->flashMessage(t("Collection '%' was validated.", "$this->database.$collection"));
         }
         
         $this->redirect('Database:default');
@@ -78,7 +78,7 @@ class DatabasePresenter extends BasePresenter {
             $collection = Tools::unescapeId($name);
             $this->db->database($this->database)->emptyCollection($collection);
             
-            $this->flashMessage("Collection '$this->database.$collection' was emptied.");
+            $this->flashMessage(t("Collection '%' was emptied.", "$this->database.$collection"));
         }
         
         $this->redirect('Database:default');
@@ -94,7 +94,7 @@ class DatabasePresenter extends BasePresenter {
             $collection = Tools::unescapeId($name);
             $this->db->database($this->database)->dropCollection($collection);
             
-            $this->flashMessage("Collection '$this->database.$collection' was dropped.");
+            $this->flashMessage(t("Collection '%' was dropped.", "$this->database.$collection"));
         }
         
         $this->redirect('Database:default');
@@ -110,7 +110,7 @@ class DatabasePresenter extends BasePresenter {
             $collection = Tools::unescapeId($name);
             $this->db->database($this->database)->dropIndexes($collection);
             
-            $this->flashMessage("Indexes on collection '$this->database.$collection' was dropped.");
+            $this->flashMessage(t("Indexes on collection '%' was dropped.", "$this->database.$collection"));
         }
         
         $this->redirect('Database:default');
@@ -126,7 +126,7 @@ class DatabasePresenter extends BasePresenter {
             $collection = Tools::unescapeId($name);
             $this->db->database($this->database)->reindexCollection($collection);
             
-            $this->flashMessage("Collection '$this->database.$collection' was reindexed.");
+            $this->flashMessage(t("Collection '%' was reindexed.", "$this->database.$collection"));
         }
         
         $this->redirect('Database:default');

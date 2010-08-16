@@ -30,9 +30,9 @@ class ProcessPresenter extends BasePresenter {
             $container->addCheckbox($process['opid']);
         }
         
-        $form->addSubmit('kill', "Kill process")->onClick[] = array($this, 'killProcess');
+        $form->addSubmit('kill', t('Kill process'))->onClick[] = array($this, 'killProcess');
         
-        $form->addProtection('Protection timeout expired. Pleas, try again.');
+        $form->addProtection(t('Protection timeout expired. Pleas, try again.'));
         
         return $form;
     }
@@ -45,7 +45,7 @@ class ProcessPresenter extends BasePresenter {
             
             $this->db->terminateProcess($processId);
             
-            $this->flashMessage("Process '$processId' was killed.");
+            $this->flashMessage(t("Process '%' was killed.", $processId));
         }
         
         $this->redirect('Process:default');

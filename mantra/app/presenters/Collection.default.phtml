@@ -1,84 +1,71 @@
 {extends @layout.phtml}
 
-{block #title}{$presenter->database}.{$presenter->collection} (mantra){/block}
+{block #title}{$presenter->database}.{$presenter->collection} (Mantra){/block}
 
-{block #h2}Collection: {$presenter->collection}{/block}
+{block #h2}{t}Collection:{/t} {$presenter->collection}{/block}
 
-{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Collections'>Collections</a>, 
-    <a href='http://www.mongodb.org/display/DOCS/Indexes'>Indexes</a>{/block}
+{block #help}{t}help:{/t} <a href='http://www.mongodb.org/display/DOCS/Collections'>{t}Collections{/t}</a>, 
+    <a href='http://www.mongodb.org/display/DOCS/Indexes'>{t}Indexes{/t}</a>{/block}
 
 {block #content}
 
 <p>
-<a href='{plink Collection:default}'>Collection</a>
-<a href='{plink Select:default}'>Select</a>
-<a href='{plink Update:default}'>Update</a>
-<a href='{plink Insert:default}'>Insert</a>
-<a href='{plink Import:default}'>Import</a>
-<a href='{plink RenameColl:default}'>Rename collection</a>
-<a href='{plink CreateIndex:default}'>Create index</a>
+<a href='{plink Collection:default}'>{t}Collection{/t}</a>
+<a href='{plink Select:default}'>{t}Select{/t}</a>
+<a href='{plink Update:default}'>{t}Update{/t}</a>
+<a href='{plink Insert:default}'>{t}Insert{/t}</a>
+<a href='{plink Import:default}'>{t}Import{/t}</a>
+<a href='{plink RenameColl:default}'>{t}Rename collection{/t}</a>
+<a href='{plink CreateIndex:default}'>{t}Create index{/t}</a>
 </p>
 
 {if !empty($info['capped'])}
-<p><b>Capped collection:</b>
-    <br>- maximal size: {$info['size']|bytes}
-    {if !empty($info['max'])}<br>- maximum objects: {$info['max']}{/if}
+<p><b>{t}Capped collection:{/t}</b>
+    <br>{t}- maximal size:{/t} {$info['size']|bytes}
+    {if !empty($info['max'])}<br>{t}- maximum objects:{/t} {$info['max']}{/if}
 </p>
 {/if}
 
-<h3>Indexes</h3>
+<h3>{t}Indexes{/t}</h3>
 
 {?$form->render('begin')}
 {?$form->render('errors')}
-<table class='data r4'>
+<table cellspacing='0' class='data r4'>
 <colgroup span='3' /><colgroup align='right' />
-<thead><td></td><th>Name</th><td>Keys</td><td>Size</td></thead>
+<thead><td></td><th>{t}Name{/t}</th><td>{t}Keys{/t}</td><td>{t}Size{/t}</td></thead>
 {foreach $indexes as $index => $info}
     <tr><td>{$form['index'][$info['id']]->control}</td><th>{$index}</th><td>{$info['keys']}</td><td>{$info['size']|bytes:1}</td></tr>
 {/foreach}
 </table>
-<fieldset>
-    {$form['drop']->control}
-</fieldset>
+<p>{$form['drop']->control}</p>
 {?$form->render('end')}
 
 <div style='float: left; margin-right: 2em;'>
-<h3>Collection statistics</h3>
+<h3>{t}Collection statistics{/t}</h3>
 
 <table cellspacing='0' class='info r2'>
 <colgroup /><colgroup align='right' />
 {foreach $stats as $key => $item}
-    <tr>
-    {if is_array($item)}
-        <th colspan='2'>{$key}</th></tr>
-        {foreach $item as $subkey => $subitem}
-            <tr><th>{$subkey}</th><td>
-            {if is_array($subitem)}
-                {foreach $subitem as $subsubkey => $subsubitem}
-                    {$subsubkey}: {$subsubitem}<br>
-                {/foreach}
-            {else}
-                {$subitem}
-            {/if}
-            </td></tr>
-        {/foreach}
+    <tr><th>{$key}</th><td>
+    {if in_array($key, array('size', 'avgObjSize', 'storageSize', 'lastExtentSize', 'totalIndexSize'))}
+        {$item|bytes}
     {else}
-        <th>{$key}</th><td>{$item}</td>
+        {$item}
     {/if}
-    </tr>
+    </td></tr>
 {/foreach}
 </table>
 </div>
 
 <div>
-<h3>Collection usage</h3>
+<h3>{t}Collection usage{/t}</h3>
 
 <table cellspacing='0' class='info r2 r3'>
 <colgroup /><colgroup span='2' align='right' />
-<tr><th>Query</th><th>Time</th><th>Count</th></tr>
+<tr><th>{t}Query{/t}</th><th>{t}Time [s]{/t}</th><th>{t}Count{/t}</th></tr>
 {foreach $usage as $key => $item}
     <tr>
-        <td>{$key}</td><td>{$item['time']}</td><td>{$item['count']}</td>
+        <td>{$key}</td><td>{? echo round($item['time'] / 1000000, 3)}</td><td>{$item['count']}</td>
     </tr>
 {/foreach}
 </table>

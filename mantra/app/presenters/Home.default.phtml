@@ -1,27 +1,27 @@
 {extends @layout.phtml}
 
-{block #title}Databases (mantra){/block}
+{block #title}{t}Databases{/t} (Mantra){/block}
 
-{block #h2}Select database{/block}
+{block #h2}{t}Select database{/t}{/block}
 
-{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Manual'>Manual</a>, 
-    <a href='http://www.mongodb.org/display/DOCS/Databases'>Databases</a>{/block}
+{block #help}{t}help:{/t} <a href='http://www.mongodb.org/display/DOCS/Manual'>{t}Manual{/t}</a>, 
+    <a href='http://www.mongodb.org/display/DOCS/Databases'>{t}Databases{/t}</a>{/block}
 
 {block #content}
 
 <p>
-<a href='{plink CreateDb:default}'>Create database</a>
-<a href='{plink Process:default}'>Process list</a>
-<a href='{plink Status:default}'>Server status</a>
+<a href='{plink CreateDb:default}'>{t}Create database{/t}</a>
+<a href='{plink Process:default}'>{t}Process list{/t}</a>
+<a href='{plink Status:default}'>{t}Server status{/t}</a>
 </p>
 
-{if isset($version)}<p>MongoDB server: {!$version}; PHP Mongo extension: <b>{? echo \Mongo::VERSION; }</b></p>{/if}
+{if isset($version)}<p>MongoDB server: {!$version}; {t}PHP Mongo extension{/t}: <b>{? echo \Mongo::VERSION; }</b></p>{/if}
 
 {?$form->render('begin')}
 {?$form->render('errors')}
-<table class='data r3 r4 r5 r6'>
+<table cellspacing='0' class='data r3 r4 r5 r6'>
 <colgroup span='2' /><colgroup span='4' align='right' />
-<thead><tr><th></th><th>Database</th><td>Collections</td><td>Objects</td><td>Data Size</td><td>File Size</td></tr></thead>
+<thead><tr><th></th><th>{t}Database{/t}</th><td>{t}Collections{/t}</td><td>{t}Objects{/t}</td><td>{t}Data size{/t}</td><td>{t}File size{/t}</td></tr></thead>
 <tbody>
 {foreach $databases as $db => $info}
     <tr>
@@ -35,18 +35,8 @@
 {/foreach}
 </tbody>
 </table>
-<fieldset>
-    {$form['drop']->control}
-</fieldset>
-<fieldset>
-    <table>
-    <tr><td>
-    {$form['repair']->control}
-    </td><td>
-    {$form['preserve']->control}{$form['preserve']->label}
-    </td></tr><tr><td></td><td>
-    {$form['backup']->control}{$form['backup']->label}
-    </td></tr>
-    </table>
-</fieldset>
+<p>{$form['drop']->control}
+<span class='minifieldset'>{$form['repair']->control} 
+    {$form['backup']->control} {$form['backup']->label}
+    <!--{ $form['preserve']->control} { $form['preserve']->label}--></span></p>
 {?$form->render('end')}

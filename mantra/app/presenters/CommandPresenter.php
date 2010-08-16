@@ -16,13 +16,13 @@ class CommandPresenter extends BasePresenter {
         $form = FormFactory::create($this, 'form');
         
         $form->addGroup();
-        $form->addTextArea('command', 'Command (JSON)', 80, 20)
+        $form->addTextArea('command', t('Command (JSON)'), 80, 20)
             ->setEmptyValue('{"": 1}')
-            ->addRule(Form::FILLED, 'Command must be filled.');
+            ->addRule(Form::FILLED, t('Command must be filled.'));
         
-        $form->addSubmit('run', 'Run command')->onClick[] = array($this, 'runCommand');
+        $form->addSubmit('run', t('Run command'))->onClick[] = array($this, 'runCommand');
         
-        $form->addProtection('Protection timeout expired. Pleas, try again.');
+        $form->addProtection(t('Protection timeout expired. Pleas, try again.'));
         
         return $form;
     }

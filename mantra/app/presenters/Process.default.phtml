@@ -1,20 +1,20 @@
 {extends @layout.phtml}
 
-{block #title}Processes (mantra){/block}
+{block #title}{t}Processes{/t} (Mantra){/block}
 
-{block #h2}Processes{/block}
+{block #h2}{t}Processes{/t}{/block}
 
-{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Viewing+and+Terminating+Current+Operation'>Processes</a>{/block}
+{block #help}{t}help:{/t} <a href='http://www.mongodb.org/display/DOCS/Viewing+and+Terminating+Current+Operation'>{t}Processes{/t}</a>{/block}
 
 {block #content}
 
 
 {?$form->render('begin')}
 {?$form->render('errors')}
-<table class='data r2 r3 c4'>
+<table cellspacing='0' class='data r2 r3 c4'>
 <colgroup /><colgroup span='2' align='right' /><colgroup><col align='center' /></colgroup>
-<tr><thead><th></th><th>Process id</th><td>Time</td><td>Active</td><td>Lock</td><td>Waiting</td><td>Operation</td>
-    <td>Namespace</td><td>Query</td><td>Client</td></thead></tr>
+<tr><thead><th></th><th>{t}Process id{/t}</th><td>{t}Time{/t}</td><td>{t}Active{/t}</td><td>{t}Lock{/t}</td>
+    <td>{t}Waiting{/t}</td><td>{t}Operation{/t}</td><td>{t}Namespace{/t}</td><td>{t}Query{/t}</td><td>{t}Client{/t}</td></thead></tr>
 {foreach $processList as $process}
     <tr>
         <td>{$form['process'][$process['opid']]->control}</td>

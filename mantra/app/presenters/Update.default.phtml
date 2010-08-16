@@ -1,29 +1,29 @@
 {extends @layout.phtml}
 
-{block #title}{$presenter->database}.{$presenter->collection} update (mantra){/block}
+{block #title}{$presenter->database}.{$presenter->collection} {t}update{/t} (Mantra){/block}
 
-{block #action} » update{/block}
+{block #action} » {t}update{/t}{/block}
 
 {block #h2}Update items: {$presenter->collection}{/block}
 
-{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Updating'>Updating</a>, 
-    <a href='http://www.mongodb.org/display/DOCS/Removing'>Removing</a>,
-    <a href='http://www.mongodb.org/display/DOCS/Mongo+Extended+JSON'>Extended JSON</a>{/block}
+{block #help}{t}help:{/t} <a href='http://www.mongodb.org/display/DOCS/Updating'>{t}Updating{/t}</a>, 
+    <a href='http://www.mongodb.org/display/DOCS/Removing'>{t}Removing{/t}</a>,
+    <a href='http://www.mongodb.org/display/DOCS/Mongo+Extended+JSON'>{t}Extended JSON{/t}</a>{/block}
 
 {block #content}
 
 <p>
-<a href='{plink Collection:default}'>Collection</a>
-<a href='{plink Select:default}'>Select</a>
-<a href='{plink Update:default}'>Update</a>
-<a href='{plink Insert:default}'>Insert</a>
-<a href='{plink Import:default}'>Import</a>
+<a href='{plink Collection:default}'>{t}Collection{/t}</a>
+<a href='{plink Select:default}'>{t}Select{/t}</a>
+<a href='{plink Update:default}'>{t}Update{/t}</a>
+<a href='{plink Insert:default}'>{t}Insert{/t}</a>
+<a href='{plink Import:default}'>{t}Import{/t}</a>
 </p>
 
 {control form}
 
 <div class='note'>
-<h4>Update operators:</h4>
+<h4>{t}Update operators:{/t}</h4>
 <ul>
 <li><code>$inc</code> - increment value by given number
 <li><code>$set</code> - set new value
@@ -38,19 +38,3 @@
 <li><code>$pullAll</code> - remove all occurences of all given values from array
 </ul>
 </div>
-
-<script>
-/*    $(document).ready(function() {
-        if ($('#frmform-delete:checked').get()) {
-            $('table tr:nth-child(3)').hide();
-        }
-        $('#frmform-delete').change(function() {
-            alert($('#frmform-delete:checked'.get()));
-            if ($('#frmform-delete:checked'.get())) {
-                $('table tr:nth-child(3)').hide();
-            } else {
-                $('table tr:nth-child(3)').show();
-            }
-        });
-    });*/
-</script>

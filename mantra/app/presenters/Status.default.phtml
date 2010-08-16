@@ -1,33 +1,32 @@
 {extends @layout.phtml}
 
-{block #title}Server status (mantra){/block}
+{block #title}{t}Server status{/t} (Mantra){/block}
 
-{block #action} » server status{/block}
+{block #action} » {t}server status{/t}{/block}
 
-{block #h2}Server status{/block}
+{block #h2}{t}Server status{/t}{/block}
 
-{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Monitoring+and+Diagnostics'>Diagnostics</a>,
-    <a href='http://www.mongodb.org/display/DOCS/Optimization'>Optimization</a>{/block}
+{block #help}{t}help:{/t} <a href='http://www.mongodb.org/display/DOCS/Monitoring+and+Diagnostics'>{t}Diagnostics{/t}</a>,
+    <a href='http://www.mongodb.org/display/DOCS/Optimization'>{t}Optimization{/t}</a>,
+    <a href='http://www.mongodb.org/display/DOCS/Command+Line+Parameters'>{t}Configuration{/t}</a>{/block}
 
 {block #content}
 
 <p>
-<a href='{plink Status:default}'>Server status</a>
-<a href='{plink Usage:default}'>Collection usage</a>
-<a href='http://{$firstServer}:28017/'>Server dignostic screen</a>
+<a href='{plink Status:default}'>{t}Server status{/t}</a>
+<a href='{plink Usage:default}'>{t}Collection usage{/t}</a>
+<a href='http://{$firstServer}:28017/'>{t}Server dignostic screen{/t}</a>
 </p>
 
 <p>
 MongoDB server: {!$version}<br>
-running as: <b>{$masterSlave}</b><br>
-startup config: <b>{$cmdLine}</b><br>
+{t}running as:{/t} <b>{$masterSlave}</b><br>
+{t}configuration:{/t} <b>{$cmdLine}</b><br>
 </p>
 
 {?$form->render('begin')}
 {?$form->render('errors')}
-<fieldset>
-    {$form['shutdown']->control}
-</fieldset>
+<p>{$form['shutdown']->control}</p>
 <!--<fieldset>
     { $form['lock']->control}
     { $form['unlock']->control}

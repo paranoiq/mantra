@@ -1,13 +1,13 @@
 {extends @layout.phtml}
 
-{block #title}{$presenter->database} » create collection (mantra){/block}
+{block #title}{$presenter->database} » {t}create collection{/t} (Mantra){/block}
 
-{block #action} » create collection{/block}
+{block #action} » {t}create collection{/t}{/block}
 
-{block #h2}Create collection{/block}
+{block #h2}{t}Create collection{/t}{/block}
 
-{block #help}help: <a href='http://www.mongodb.org/display/DOCS/Collections'>Collections</a>, 
-    <a href='http://www.mongodb.org/display/DOCS/Capped+Collections'>Capped collections</a>{/block}
+{block #help}{t}help:{/t} <a href='http://www.mongodb.org/display/DOCS/Collections'>{t}Collections{/t}</a>, 
+    <a href='http://www.mongodb.org/display/DOCS/Capped+Collections'>{t}Capped collections{/t}</a>{/block}
 
 {block #content}
 
