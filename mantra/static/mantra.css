@@ -62,13 +62,16 @@ thead td, thead th, /* mantra */ table.info th[colspan] {
     border-bottom: 1px #DDD solid; }
 .nowrap tr:nth-child(2n) td, .nowrap tr:nth-child(2n) th, 
 .data tr:nth-child(2n) td, .data tr:nth-child(2n) th { /* mantra */
-    background-color: #DEF; }
+    background-color: #EEE; }
 .odd td, .odd th {
-    background-color: #DEF; } /* IEx */
-tr:hover td, tr:hover th {
-    background-color: #CDE !important; } /* WTF? */
-thead tr:hover td, thead tr:hover th {
-    background-color: #EEE !important; }
+    background-color: #EEE; } /* IEx */
+tr.selected td, tr.selected th {
+    background-color: #ABC !important; }
+/*tr:hover td, tr:hover th {
+    background-color: #BCD !important; }*/ /* WTF? */
+/*thead tr:hover td, thead tr:hover th {
+    background-color: #EEE !important; }*/
+
 
 /* mantra form tables */
 fieldset table {
@@ -330,17 +333,23 @@ x.paginator {
 
 
 /* JSON value hightlighting */
-.val-string {
+.t-bool {
+    font-weight: bold; }
+.t-int, .t-float {
+    color: red; }
+.t-string {
     color: brown;
     font-style: italic;
     white-space: pre; }
-.val-key, .val-key .val-string {
+.t-key {
     color: green;
     font-style: normal; }
-.val-number {
-    color: red; }
-.val-bool {
-    font-weight: bold; }
+.t-pair:hover > .t-key {
+    background-color: green;
+    color: white; }
+.t-pair:hover > .t-bool, .t-pair:hover > .t-int, .t-pair:hover > .t-float, .t-pair:hover > .t-string {
+    background-color: #FF7;
+    cursor: pointer; }
 
 
 /* <colgroup> simulation */

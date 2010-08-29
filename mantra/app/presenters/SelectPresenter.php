@@ -1,7 +1,9 @@
 <?php
 
 use Mantra\FormFactory;
-use Mantra\Formater;
+//use Mantra\Formater;
+use Phongo\Json\Serialiser;
+use Phongo\Json\HtmlFormater;
 use Nette\Forms\Form;
 use Nette\Forms\ISubmitterControl;
 use Nette\Environment;
@@ -17,7 +19,7 @@ class SelectPresenter extends BasePresenter {
         $this->counter(count($this->getRequest()->getParams()) <= 3 ? NULL : 0);
         
         $form = $this->getComponent('form');
-        $form->setDefaults(array('limit' => 25));
+        $form->setDefaults(array('limit' => 10));
         $values = $form->getValues();
         
         // query
@@ -38,8 +40,8 @@ class SelectPresenter extends BasePresenter {
         
         // pagination
         if (!$values['limit']) {
-            $values['limit'] = 25;
-            $form['limit']->value = 25;
+            $values['limit'] = 10;
+            $form['limit']->value = 10;
         }
         $cursor->limit($values['limit']);
         $paginator = $this->preparePaginator($cursor->count(FALSE), $values['limit'], $values['page'], !$values['p']);
@@ -49,11 +51,15 @@ class SelectPresenter extends BasePresenter {
         $items = array();
         while ($item = $cursor->fetch()) {
             $id = (string) $item['_id'];
-            unset($item['_id']);
+            //unset($item['_id']);
             
-            $formater = new Formater();
-            $formater->html = TRUE;
-            $i = $formater->formatJson($item, TRUE);
+            $options = array(
+                'tengenTypes' => TRUE,
+                'quoteKeys' => FALSE,
+                'jsonStrings' => FALSE,
+                'liveUrls' => TRUE);
+            $serialiser = new Serialiser(new HtmlFormater($options));
+            $i = $serialiser->encode($item);
             
             $items[$id] = $i;
         }
