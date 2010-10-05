@@ -61,7 +61,7 @@ class Language {
         
         try {
             $dir = new DirectoryIterator(APP_DIR . '/lang');
-        } catch (Exception $e) { 
+        } catch (Exception $e) {
             throw new Exception("Cannot open translations directory '" . APP_DIR . "/lang'.");
         }
         foreach ($dir as $file) {
