@@ -18,7 +18,7 @@ class UpdatePresenter extends BasePresenter {
             ->setEmptyValue('{"": ""}');
         
         $form->addCheckbox('delete', t('Delete matching items'));
-        $form->addCheckbox('upsert', t('Insert if no match found'));
+        $form->addCheckbox('upsert', t('Insert if no match found (upsert)'));
         $form->addCheckbox('single', t('Update/delete just one item'));
         
         $form['modifier']->addConditionOn($form['delete'], Form::EQUAL, FALSE)

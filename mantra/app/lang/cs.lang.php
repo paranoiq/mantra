@@ -1,6 +1,12 @@
 <?php
 
 $translations = array(
+    // plurals
+    /*'$plurals' = array(
+        1,
+        array(2, 4),
+        TRUE),
+    */
     // head
     'Mantra - MongoDB administration tool' => 'Mantra - administrační nástroj pro MongoDB',
     
@@ -240,8 +246,8 @@ $translations = array(
     'File was succesfully loaded and % items created.' => 'Soubor byl úspěšně načten a bylo založeno % položek.',
     
     // 
-    '' => '',
-    '' => '',
+    'Hello % Dolly' => 'Ahoj % Vole',
+    'Hello %?' => 'Ahoj %?',
     '' => '',
     '' => '',
     '' => '',

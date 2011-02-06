@@ -146,11 +146,11 @@ class Formater extends Object {
         return $val;
     }
     private function wrapObject($val) {
-        if ($this->html) return "<span class='$this->cssClassPrefix-object'>{ " . $val . " }</span>";
+        if ($this->html) return "<span class='$this->cssClassPrefix-object'><b>{</b> " . $val . " <b>}</b></span>";
         return "{" . $val . "}";
     }
     private function wrapArray($val) {
-        if ($this->html) return "<span class='$this->cssClassPrefix-array'>[" . $val . "]</span>";
+        if ($this->html) return "<span class='$this->cssClassPrefix-array'><b>[</b>" . $val . "<b>]</b></span>";
         return "[$val]";
     }
     /**#@-*/

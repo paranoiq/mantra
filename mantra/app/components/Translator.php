@@ -17,7 +17,15 @@ class Translator /*implements ITranslator*/ {
         if ($this->translations === NULL) $this->loadTranslations();
         
         if (!isset($this->translations[$message])) return $message;
-        return $this->translations[$message];
+        
+        $message = $this->translations[$message];
+        
+        $params = func_get_args();
+        array_shift($params);
+        $message = preg_replace_callback('/(?<!%)%(?!%)/', 
+            function () use ($params) { if (!$params) return '%'; return array_shift($params); }, $message);
+        
+        return str_replace('%%', '%', $message);
     }
     
     
@@ -29,27 +37,21 @@ class Translator /*implements ITranslator*/ {
         
         $odd = TRUE;
         $message = '';
-        $this->params = array();
+        $params = array();
         foreach ($shards as $shard) {
             if ($odd) {
                 $message .= $shard;
             } else {
                 $message .= '%';
-                $this->params[] = $shard;
+                $params[] = $shard;
             }
             $odd = !$odd;
         }
         
-        $translation = preg_replace_callback('/(?<!%)%(?!%)/', callback($this, '_cb'), $this->translate($message));
+        $message = preg_replace_callback('/(?<!%)%(?!%)/', 
+            function () use ($params) { if (!$params) return '%'; return array_shift($params); }, $this->translate($message));
         
-        return str_replace('%%', '%', $translation);
-        
-    }
-    
-    public function _cb() {
-        if (!$this->params) return '%';
-        
-        return array_shift($this->params);
+        return str_replace('%%', '%', $message);
     }
     
     

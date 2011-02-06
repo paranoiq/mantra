@@ -51,7 +51,7 @@
 <tr>
     <td>{$actionForm['item'][$id]->control}</td>
     <td><a href='{plink Edit:default, database=>$presenter->database, collection=>$presenter->collection, id=>$id}'>{t}edit{/t}</a></td>
-    <td><a href='{plink Show:default, id=>$id}'>{$id}</a></td>
+    <td><a href='{plink Show:default, id=>$id}'>...{=subStr($id, -7)}</a></td>
     <td class='itemdata'>{!$item}</td>
 </tr>
 {/foreach}

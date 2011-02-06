@@ -60,9 +60,9 @@ class Language {
         }
         
         try {
-            $dir = new DirectoryIterator(APP_DIR . '/lang');
+            $dir = new DirectoryIterator(LANG_DIR);
         } catch (Exception $e) {
-            throw new Exception("Cannot open translations directory '" . APP_DIR . "/lang'.");
+            throw new Exception("Cannot open translations directory '" . LANG_DIR . "'.");
         }
         foreach ($dir as $file) {
             if (!$file->isFile()) continue;

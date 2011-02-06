@@ -1,1 +1,2 @@
 Disallow: /Nette
+Disallow: /Nette-old
