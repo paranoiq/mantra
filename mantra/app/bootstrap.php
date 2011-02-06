@@ -1,5 +1,10 @@
 <?php
 
+define('LIBS_DIR', WWW_DIR . '/app/libs');
+define('TEMP_DIR', WWW_DIR . '/app/temp');
+define('LOG_DIR',  WWW_DIR . '/app/temp/logs');
+define('LANG_DIR', WWW_DIR . '/app/lang');
+
 require_once LIBS_DIR . '/Nette/loader.php';
 //require_once dirname(__FILE__) . '/functions.php';
 
